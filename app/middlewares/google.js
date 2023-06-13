@@ -11,7 +11,7 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:10000/auth/google"
+        callbackURL: "/auth/google"
     },
         function (accessToken, refreshToken, profile, cb) {
           return cb(null, profile);
