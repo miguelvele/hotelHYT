@@ -1,0 +1,28 @@
+<div class="container-fluid p-0 bg-dark wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light  py-3 py-lg-0 px-lg-5">
+        <a class="navbar-brand ml-lg-3" href="/">
+            <img src="/img/icon.png" class="hover imagesize img-fluid" style="max-height: 150px;" />
+        </a>
+        <button type="button" class="navbar-toggler btn-danger btn-lg" data-toggle="collapse"
+            data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+
+
+            <div class="navbar-nav m-auto py-0">
+                <a class="btn btn-lg text-white btn-hover-danger <%= activo==1 ? " active":'' %>" href="/">Inicio</a>
+                <a class="btn btn-lg text-white btn-hover-danger <%= activo==2 ? " active":'' %>"
+                    href="/imagenes">Imagenes</a>
+                <a class="btn btn-lg text-white btn-hover-danger <%= activo==3 ? " active":'' %>"
+                    href="servicios">Servicios</a>
+                <a class="btn btn-lg text-white btn-hover-danger <%= activo==4 ? " active":'' %>"
+                    href="precio">Precio</a>
+                <a class="btn btn-lg text-white btn-hover-danger <%= activo==5 ? " active":'' %>"
+                    href="/contactenos">Contáctenos</a>
+                <a class="btn btn-danger btn-lg text-white <%= activo==6 ? " active":'' %>" href="/login"> Iniciar sesión
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

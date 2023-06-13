@@ -1,0 +1,51 @@
+.hover:hover {
+    opacity: 0.7;
+  }
+  .hover:hover {
+    background-color: #6c757d;
+  }
+  /* Agrega el efecto de agrandar al hacer hover */
+.hover:hover {
+    transform: scale(1.05);
+  }
+  .navbar {
+    
+    box-shadow: 0px 8px 9px #000000;
+  }
+  .buscador{
+    height: 50%;
+  }
+  .jumbotron{background-image: url('/img/fondo.jpg'); 
+    height: 600px;
+     background-repeat: no-repeat; 
+     background-size: cover; 
+     background-position: center center;
+  }
+  .melo{
+    background-color: rgba(0, 0, 0, 0.77);
+    color: white;
+    margin-top: 200px;
+    
+  }
+  .melo h1{
+    
+    font-size: 40px;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Altura mínima para ocupar toda la ventana */
+}
+
+.page-content {
+    flex-grow: 1; /* Esto hará que el contenido crezca y empuje el footer hacia abajo */
+}
+  
+  

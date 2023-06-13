@@ -1,0 +1,59 @@
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Modificar usuarios
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Examples</a></li>
+            <li class="active">Blank page</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <form action="guardar" method="POST">
+
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="text" class="form-control" readonly value="<%= datos.id %>" name="id">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control" placeholder="Usuario" value="<%= datos.name %>" name="name">
+                    </div>
+                    <div class="box-footer">
+                        <button class="btn btn-warning" type="submit" >Guardar
+                            <i class="fa fa-save "></i>
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="fa fa-times"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+        <!-- /.box -->
+
+    </section>
+
+
+</div>

@@ -1,0 +1,28 @@
+		
+		.login-form {
+			width: 40%;
+			margin: 0 auto;
+			margin-top: 50px;
+			padding: 25px;
+			background-color: #f7f7f7;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+		}
+		.login-form img {
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 20px;
+			height: 200px;
+			max-width: 100%;
+			border-radius: 10%;
+			border: 2px solid black; /* Agregar un borde negro de 2 píxeles */
+		  }
+		  
+		.login-form button:hover {
+			background-color: #28a745;
+			border-color: #28a745;
+		}
+		.register-link {
+			text-align: center;
+			margin-top: 20px;
+		}
