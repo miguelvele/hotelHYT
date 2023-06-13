@@ -28,11 +28,12 @@
                     <h1>Ubicación</h1>
                     <div id="map" style="width: 100%; height: 400px;"></div>
                 </div>
+                <script> function initMap() { var myLatLng = { lat: -25.363, lng: 131.044 }; var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: myLatLng }); } </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyBpeoFXNlfiHvBJ-BNYEih7Pl-sE5PEy6c&signature=YOUR_SIGNATURE"> </script>
+          
             </div>
         </div>
-        <script> function initMap() { var myLatLng = { lat: -25.363, lng: 131.044 }; var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: myLatLng }); } </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpeoFXNlfiHvBJ-BNYEih7Pl-sE5PEy6c"> </script>
-  
+      
 
 </body>
 
