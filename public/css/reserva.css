@@ -47,5 +47,10 @@
 .page-content {
     flex-grow: 1; /* Esto hará que el contenido crezca y empuje el footer hacia abajo */
 }
+
+#map {
+  width: 80px;
+  height: 80px;
+}
   
   

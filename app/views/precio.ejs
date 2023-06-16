@@ -6,6 +6,10 @@
     <body>
         <div class="page-content">
             <%- include("./partials/menu.ejs", {'activo': 4}); %>
+            <form action="guardarimagen" method="POST" enctype="multipart/form-data">
+                <input type="file" name="imagen" />
+                <button type="submit">Guardar imagen</button>
+              </form>
         </div>
 </body>
 </html>

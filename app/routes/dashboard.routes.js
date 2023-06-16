@@ -7,9 +7,13 @@ import PDFDocument from "pdfkit"
 import axios from "axios";
 import fs from "fs"
 
+
 dotenv.config();
 
 const dash = Router();
+
+
+
 
 // Ruta vista inicio
 dash.get("/inicio", (req, res) => {
