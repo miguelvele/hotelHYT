@@ -38,13 +38,36 @@ dash.get("/inicio", (req, res) => {
 // Ruta vista usuarios
 dash.get("/usuario", async (req, res) => {
     if (req.cookies.ckmp) {
+        // try {
+        //     const token = jwt.verify(
+        //         req.cookies.ckmp,
+        //         process.env.SECRET_KEY
+        //     )
+
+        //     let tipou = "http://localhost:3000/api/http://localhost:3000/api/tiposusuario";
+        //     let option = {
+        //         method: "GET",
+        //     }
+        //     let tipos = {};
+        //     const result = await fetch(tipou, option)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             tipos = data[0]
+        //             //console.log(data[0]);
+        //         })
+        //         .catch(err => console.error("error en peticion" + err))
+
+        //     } catch (error) {
+        //         res.redirect("/");
+        //     }
+
         try {
             const token = jwt.verify(
                 req.cookies.ckmp,
                 process.env.SECRET_KEY
             )
 
-            let ruta = "http://localhost:3000/api/user";
+            let ruta = "http://localhost:3000/api/usuarios";
             let option = {
                 method: "GET",
             }
@@ -57,11 +80,13 @@ dash.get("/usuario", async (req, res) => {
                 })
                 .catch(err => console.error("error en peticion" + err))
 
+                
+                
             res.render("dash", {
                 "nombre": token.nombre,
                 "foto": token.foto,
                 "menu": 1,
-                "datos": datos
+                "datos": datos,
             });
 
         } catch (error) {
@@ -72,6 +97,19 @@ dash.get("/usuario", async (req, res) => {
     }
 });
 
+dash.get("/tiposusuario", async (req, res) => {
+    try {
+        const tiposusuarioResponse = await fetch('http://localhost:3000/api/tiposusuario');
+        const tiposusuario = await tiposusuarioResponse.json();
+    
+        res.render("tiposusuario", {
+          tiposusuario: tiposusuario
+        });
+      } catch (error) {
+        console.error('Error en la petición a la API de tipos de usuario:', error);
+        res.redirect("/");
+      }
+});
 
 dash.post("/generarpdf", async (req, res) => {
     try {
@@ -187,54 +225,31 @@ dash.get("/categoria", (req, res) => {
     }
 });
 
-dash.post("/guardar", (req, res) => {
-    let metodo ="post";
-    let ruta = "http://localhost:3000/api/user";
-    if (req.body.name) {
-
-        let data = {
-            name: req.body.name
-        }
-
-         
-
-        if(req.body.id){
-            data= {
-                id: req.body.id,
-                name: req.body.name
-            }
-            metodo = "put";
-
-        }
-
-
-        
-       
-
-        let options = {
-
-            method: metodo,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }
-        try {
-            const result = fetch(ruta, options)
-                .then(res => res.json())
-                .then(data => {
-                    console.log("Datos guardados exitosamente ");
-                })
-                .catch(error => console.log('error consumo de api'));
-            res.redirect("/v1/usuario")
-        } catch (error) {
-
-        }
-
-    } else {
-        res.send("error");
-    }
-})
+dash.post('/guardar', (req, res) => {
+    const nuevoUsuario = {
+      codigo_tipo_usuario: req.body.CODIGO_TIPO_USUARIO,
+      tipo_documento: req.body.TIPO_DOCUMENTO,
+      documento: req.body.DOCUMENTO,
+      nombre: req.body.NOMBRE,
+      apellido: req.body.APELLIDO,
+      correo: req.body.CORREO,
+      clave: req.body.CLAVE,
+      estado: req.body.ESTADO,
+      fecha_creacion: req.body.FECHA_CREACION
+    };
+  
+    axios.post('http://localhost:3000/api/usuarios', nuevoUsuario)
+      .then(response => {
+        console.log(response.data);
+        // Aquí puedes realizar alguna acción adicional o mostrar un mensaje de éxito.
+        res.redirect("/v1/usuario");      })
+      .catch(error => {
+        console.error(error);
+        // Aquí puedes manejar el error de alguna manera o mostrar un mensaje de error.
+        res.redirect('/error'); // Redirige a una página de error o a donde desees.
+      });
+  });
+  
 // Ruta para salir del dash
 dash.get("/salir", (req, res) => {
     res.clearCookie("ckmp");

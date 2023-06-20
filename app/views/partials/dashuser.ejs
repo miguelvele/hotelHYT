@@ -21,9 +21,9 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+          <a href="tiposusuario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
             Añadir usuario
-          </button>
+          </a>
           
 
           <div class="box-tools pull-right">
@@ -39,16 +39,23 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>DOCUMENTO</th>
                 <th>NOMBRE</th>
-                <th>ACTION</th>
+                <th>APELLIDO</th>
+                <th>CORREO</th>
+                <th>FECHA DE CREACION</th>
               </tr>
             </thead>
             <tbody>
               <% datos.forEach((elements)=>{ %>
                 <tr>
-                  <td><%= elements.ID %></td>
-                  <td><%= elements.NAME %>
-                  </td>
+                  <td><%= elements.CODIGO_USUARIO %></td>
+                  <td><%= elements.DOCUMENTO %></td>
+                  <td><%= elements.NOMBRE %></td>
+                  <td><%= elements.APELLIDO %></td>
+                  <td><%= elements.CORREO %></td>
+                  <td><%= elements.FECHA_CREACION %></td>
+                  
                   <td>
                     <a href="edit-user?id=<%= elements.ID %>&name=<%= elements.NAME %>" class="btn btn-success">
                       <i class="fa fa-edit"></i>
@@ -87,12 +94,85 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Ingrese el nuevo usuario</h4>
           </div>
+          
           <div class="modal-body">
+            <div class="form-group">
+            <label>Tipo de Usuario</label>
+            <select name="CODIGO_TIPO_USUARIO" class="form-control">
+              <option  value="2">USUARIO</option>
+                <option value="1">ADMIN</option>
+            </select>
+          </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+            <label>Tipo de Documento</label>
+            <select name="TIPO_DOCUMENTO" class="form-control">
+              <option  value="Cedula de Ciudadania">Cedula de Ciudadania</option>
+                <option value="Pasaporte">Pasaporte</option>
+            </select>
+          </div>
+          </div>
+          
+          <div class="modal-body">
+            <label>Documento</label>
+
             <div class="input-group">
               <span class="input-group-addon">@</span>
-              <input name="name" type="text" class="form-control" placeholder="Nombre usuario">
+              <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
             </div>
           </div>
+          <div class="modal-body">
+            <label>Nombre</label>
+
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
+            </div>
+          </div>
+          <div class="modal-body">
+            <label>Apellido</label>
+
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
+            </div>
+          </div>
+          <div class="modal-body">
+            <label>Correo</label>
+
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
+            </div>
+          </div>
+          <div class="modal-body">
+            <label>Clave</label>
+
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input name="CLAVE" type="text" class="form-control" placeholder="Ingrese una Clave">
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body">
+              <div class="form-group">
+              <label>Estado</label>
+              <select name="ESTADO" class="form-control">
+                <option  value="1">Activo</option>
+              </select>
+            </div>
+            </div>
+         </div>
+          <div class="modal-body">
+            <label>Fecha de Creacion</label>
+
+            <div class="input-group">
+              <span class="input-group-addon">@</span>
+              <input name="FECHA_CREACION" type="text" class="form-control" >
+            </div>
+          </div>
+         
           <div class="modal-footer">
             <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">Guardar</button>

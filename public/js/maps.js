@@ -1,8 +1,8 @@
-//import dotenv from "dotenv";
-//dotenv.config();
+import dotenv from "dotenv";
+dotenv.config();
 // AIzaSyBpeoFXNlfiHvBJ-BNYEih7Pl-sE5PEy6c
 var script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBpeoFXNlfiHvBJ-BNYEih7Pl-sE5PEy6c&callback=initMap';
+script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=initMap`;
 script.async = true;
 
 
