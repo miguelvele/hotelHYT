@@ -7,9 +7,10 @@
 <body>
 
     <div class="page-content">
-        <%- include("./partials/menu.ejs", {'activo': 5}); %>
+        <%- include("./partials/menu.ejs"); %>
     </div>
-    
+    <div class="container mt-4 rounded shadow p-4">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -31,6 +32,7 @@
                 <div id="map"></div>
             </div>
         </div>
+    </div>
         <%- include("./partials/footer.ejs"); %>
 
       

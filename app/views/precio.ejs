@@ -5,11 +5,33 @@
     
     <body>
         <div class="page-content">
-            <%- include("./partials/menu.ejs", {'activo': 4}); %>
-            <form action="guardarimagen" method="POST" enctype="multipart/form-data">
+            <%- include("./partials/menu.ejs"); %>
+
+            <div class="container mt-4 ">
+                <div class="bg-danger text-center w-100">
+                    <h1>Cabañas</h1>
+                </div> 
+                    <% datos.forEach((elements)=>{ %>
+                <div class="card mb-4  col-md-12 mt-4">
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <img src="/img/cabaña.jpg" class="card-img" alt="">
+                        </div>
+                        <div class="col-md-8 mx-auto ">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= elements.DETALLE %></h5>
+                                <h6 class="card-title">Precio $<%= elements.PRECIO %></h6>
+                                <a href="/reserva" class="btn btn-primary">Hacer reservacion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <!-- <form action="guardarimagen" method="POST" enctype="multipart/form-data">
                 <input type="file" name="imagen" />
                 <button type="submit">Guardar imagen</button>
-              </form>
+              </form> -->
         </div>
 </body>
 </html>

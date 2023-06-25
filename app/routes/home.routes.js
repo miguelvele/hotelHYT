@@ -46,9 +46,7 @@ route.get("/", (req, res) => {
     res.render("index");
 });
 
-route.get("/precio", (req, res) => {
-    res.render("precio.ejs");
-});
+
 route.get("/login", (req, res) => {
     res.render("login.ejs");
 });

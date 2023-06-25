@@ -100,6 +100,11 @@ const borrarh = async (req, res) =>{
     
 };
 
+const salir = async (req, res) => {
+    res.clearCookie("ckmp");
+    res.redirect("/");
+};
+
 export const habitacionesController = {
-  habitaciones, guardarh, borrarh
+  habitaciones, guardarh, borrarh, salir
 }

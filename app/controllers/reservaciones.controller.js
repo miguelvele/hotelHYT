@@ -101,9 +101,12 @@ const borrarr = async (req, res) => {
     }
   };
   
- 
+  const salir = async (req, res) => {
+    res.clearCookie("ckmp");
+    res.redirect("/");
+};
   
   
 export const reservacionesController = {
-    reservaciones, guardarr, borrarr
+    reservaciones, guardarr, borrarr, salir
 };

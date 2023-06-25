@@ -10,6 +10,7 @@ import route from "./routes/home.routes.js"
 import inicio from './routes/dashboard.routes.js';
 import usuario from './routes/usuarios.routes.js';
 import habitaciones from './routes/habitaciones.routes.js';
+import precio from './routes/precio.routes.js';
 import reservaciones from './routes/reservaciones.routes.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
@@ -44,6 +45,7 @@ app.use("/auth", passport.authenticate("auth-google", {
 }), loginRouter);
 
 app.use("/", route);
+app.use("/", precio);
 app.use("/v1", inicio);
 app.use("/v1", usuario);
 app.use("/v1", habitaciones);

@@ -17,6 +17,8 @@ const router = Router();
 router.get('/habitaciones',habitacionesController.habitaciones);
 router.post('/guardarh',habitacionesController.guardarh);
 router.get('/borrarh',habitacionesController.borrarh);
+router.get('/salir',habitacionesController.salir);
+
 
 
 
