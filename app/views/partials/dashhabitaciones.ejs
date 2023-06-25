@@ -302,25 +302,70 @@
   <!-- /.content-wrapper -->
 
 </div>
-<script>
+
+  <script>
   function confirmar(NUMERO_HABITACION) {
     Swal.fire({
-      title: 'estas seguro?',
-      text: "quieres borrar realmente esto!" + " " + NUMERO_HABITACION,
+      title: '¿Estás seguro?',
+      text: '¿Quieres borrar realmente esto? ' + NUMERO_HABITACION,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'sizas!'
+      confirmButtonText: '¡Sí, borrar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = `borrarh?id=${NUMERO_HABITACION}`;
-        Swal.fire(
-          'Borrado mi fa!',
-          'ya borramos tu registro mi fa.',
-          'success'
-        )
+        Swal.fire({
+          title: 'Borrando...',
+          text: 'Por favor, espera un momento.',
+          icon: 'info',
+          showConfirmButton: false
+        });
+
+        setTimeout(function() {
+          window.location.href = `borrarh?id=${NUMERO_HABITACION}`;
+          Swal.fire({
+            title: '¡Borrado exitoso!',
+            text: 'Tu registro ha sido borrado correctamente.',
+            icon: 'success',
+            timer: 3000,
+            showConfirmButton: false
+          }).then(() => {
+            // Redirecciona a la página de reservaciones
+            window.location.href = '/v1/habitaciones';
+          });
+        }, 2000);
       }
-    })
+    });
+  }
+</script>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const success = urlParams.get('success');
+  const id = urlParams.get('id');
+
+  if (success === 'true') {
+    Swal.fire({
+      title: '¡Borrado exitoso!',
+      text: 'Tu registro ha sido borrado correctamente.',
+      icon: 'success',
+      timer: 3000,
+      showConfirmButton: false
+    }).then(() => {
+      // Redirecciona a la página de reservaciones
+      window.location.href = '/v1/habitaciones';
+    });
+  } else if (success === 'false') {
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo borrar el registro.',
+      icon: 'error',
+      timer: 3000,
+      showConfirmButton: false
+    }).then(() => {
+      // Redirecciona a la página de reservaciones
+      window.location.href = '/v1/habitaciones';
+    });
   }
 </script>

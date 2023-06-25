@@ -83,20 +83,20 @@ const borrarh = async (req, res) =>{
                 const option={
                     method:"DELETE"
                 };
-                const result = await fetch(url, option )
-                .then(response=>response.json())
-                .then(data=>{
-                    if (data[0].affectedRows==1){
-                        // console.log("borrado mi bro");
-                        
-                    }else{
-                        console.log("no se pudo borrar mi bro");
-                    }
-                })
-                res.redirect("/v1/habitaciones")
-        } catch (error) {
-            console.error("Error con el token", error);
-        }
+                const result = await fetch(url, option)
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data[0].affectedRows == 1) {
+                    res.redirect(`/v1/habitaciones?success=true&id=${id}`);
+                  } else {
+                    console.log("No se pudo borrar mi bro");
+                    res.redirect(`/v1/habitaciones?success=false&id=${id}`);
+                  }
+                });
+            } catch (error) {
+              console.error("Error con el token", error);
+              res.redirect(`/v1/habitaciones?success=false&id=${id}`);
+            }
     
 };
 

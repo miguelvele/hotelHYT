@@ -15,6 +15,10 @@ dotenv.config();
 const router = Router();
 
 router.get('/reservaciones', reservacionesController.reservaciones);
+router.post('/guardarr', reservacionesController.guardarr);
+router.get('/borrarr', reservacionesController.borrarr);
+
+
 
 
 
