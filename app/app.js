@@ -6,9 +6,11 @@ import './middlewares/google.js';
 import ejs from 'ejs';
 import path from 'path';
 import * as url from 'url';
-import routeHome from './routes/backoffice.routes.js';
 import route from "./routes/home.routes.js"
-import dash from './routes/dashboard.routes.js';
+import inicio from './routes/dashboard.routes.js';
+import usuario from './routes/usuarios.routes.js';
+import habitaciones from './routes/habitaciones.routes.js';
+import reservaciones from './routes/reservaciones.routes.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
@@ -41,9 +43,12 @@ app.use("/auth", passport.authenticate("auth-google", {
     session: false
 }), loginRouter);
 
-app.use("/", routeHome);
 app.use("/", route);
-app.use("/v1", dash);
+app.use("/v1", inicio);
+app.use("/v1", usuario);
+app.use("/v1", habitaciones);
+app.use("/v1", reservaciones);
+
 
 // SE CAPTURA EL PUERTO QUE SE ENVUENTRA EN LOS AMBIENTES
 app.set("port", process.env.PORT || 9999);
