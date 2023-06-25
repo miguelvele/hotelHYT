@@ -56,13 +56,37 @@
                     <%= elements.CODIGO_USUARIO%>
                   </td>
                   <td>
-                    <%= elements.CODIGO_ESTADO_HABITACION %>
+                    <% if (elements.CODIGO_METODO_PAGO === 1) { %>
+                      efectivo
+                    <% } else if (elements.CODIGO_METODO_PAGO === 2) { %>
+                      consignacion
+                    <% } %>
                   </td>
                   <td>
-                    <%= elements.DETALLE %>
+                    <% const fechaEntrada = new Date(elements.FECHA_ENTRADA); %>
+                    <%= fechaEntrada.toISOString().split('T')[0] %>
                   </td>
                   <td>
-                    <%= elements.PRECIO %>
+                    <% const fechaSalida = new Date(elements.FECHA_SALIDA); %>
+                    <%= fechaSalida.toISOString().split('T')[0] %>
+                  </td>
+                  <td>
+                    <%= elements.PRECIO_INICIAL %>
+                  </td>
+                  <td>
+                    <%= elements.ADELANTO %>
+                  </td>
+                  <td>
+                    <%= elements.PRECIO_RESTANTE %>
+                  </td>
+                  <td>
+                    <%= elements.TOTAL_PAGADO %>
+                  </td>
+                  <td>
+                    <%= elements.COSTO_PENALIDAD %>
+                  </td>
+                  <td>
+                    <%= elements.OBSERVACIONES %>
                   </td>
 
 

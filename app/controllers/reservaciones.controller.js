@@ -9,12 +9,15 @@ import fs from "fs"
 
 const reservaciones = async (req, res) => {
     if (req.cookies.ckmp) {
-        
+
         try {
             const token = jwt.verify(
                 req.cookies.ckmp,
                 process.env.SECRET_KEY
             )
+           
+
+
 
             let ruta = "http://localhost:3000/api/reservas";
             let option = {
@@ -36,6 +39,7 @@ const reservaciones = async (req, res) => {
                 "foto": token.foto,
                 "menu": 3,
                 "datos": datos,
+                
             });
 
         } catch (error) {
