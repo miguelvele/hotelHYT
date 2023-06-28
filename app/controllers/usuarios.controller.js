@@ -122,6 +122,52 @@ const actualizar = async (req, res) => {
             res.status(500).send('Error al actualizar los datos');
         });
 };
+const edituser = async(req, res)=>{
+    const id = req.query.id;
+    const codigo_usuario = req.query.codigo_usuario;
+    const codigo_tipo_usuario = req.query.codigo_tipo_usuario;
+    const tipo_documento = req.query.tipo_documento;
+    const documento = req.query.documento;
+    const nombre = req.query.nombre;
+    const apellido = req.query.apellido;
+    const correo = req.query.correo;
+    const clave = req.query.clave;
+    const estado = req.query.estado;
+    const fecha_creacion = req.query.fecha_creacion;
+
+    let datos = {
+        id:id,
+        codigo_usuario:codigo_usuario,
+        codigo_tipo_usuario:codigo_tipo_usuario,
+        tipo_documento:tipo_documento,
+        documento:documento,
+        nombre:nombre,
+        apellido:apellido,
+        correo:correo,
+        clave:clave,
+        estado:estado,
+        fecha_creacion:fecha_creacion
+
+        
+    }
+
+    if (req.cookies.ckmp){
+        try {
+            const token = jwt.verify(
+                req.cookies.ckmp, 
+                process.env.SECRET_KEY)
+                res.render("dash", {
+                    "nombre": token.nombre,
+                    "foto":token.foto,
+                    "menu" : 4,
+                    "datos" : datos
+                 });
+
+        } catch (error) {
+            console.error("Errro con el token");
+        }
+    }
+}
 
 const generarpdf = async (req, res) => {
     try {
@@ -205,5 +251,5 @@ const generarpdf = async (req, res) => {
 
 
 export const usuarioController = {
- usuario, guardar, borrar, salir, actualizar, generarpdf
+ usuario, guardar, borrar, salir, actualizar, generarpdf, edituser
 };

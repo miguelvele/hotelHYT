@@ -26,15 +26,17 @@
                 </div>
             </div>
             <div class="box-body">
-                <form action="edit-user" id="formulario" method="put">
+                <form action="edituser" id="formulario" method="put">
 
                     <div class="form-group">
                         <label>ID</label>
                         <input type="text" class="form-control" readonly value="<%= datos.id %>" name="id">
-                   <label>Tipo de usuario</label>
-                        <input type="text" class="form-control"  value="<%= datos.codigo_tipo_usuario %>" name="codigo_tipo_usuario">
-                    
+                   
                     </div>
+                    
+                    
+                    <label>Tipo de usuario</label>
+                        <input type="text" class="form-control"  value="<%= datos.codigo_tipo_usuario %>" name="codigo_tipo_usuario">
                     
                     <div class="form-group">
                         <label>Tipo de Documento</label>
@@ -67,7 +69,8 @@
                     </div>
                     <div class="form-group">
                         <label>Fecha de creacion</label>
-                        <input type="text" class="form-control"  value="<%= datos.fecha_creacion %>" name="fecha_creacion">
+                        <input type="text" class="form-control" value="<% const fechaCreacion=new Date(datos.fecha_creacion); %>
+                        <%= fechaCreacion.toISOString().split('T')[0] %>" name="fecha_creacion">
                     </div>
                     <div class="box-footer">
                         <button class="btn btn-warning" type="submit" >Guardar
@@ -90,6 +93,17 @@
 
 
 </div>
+<script>
+    function formatearFecha(fecha) {
+        const fechaObj = new Date(fecha);
+        const year = fechaObj.getFullYear();
+        const month = ('0' + (fechaObj.getMonth() + 1)).slice(-2);
+        const day = ('0' + fechaObj.getDate()).slice(-2);
+        
+        return `${year}-${month}-${day}`;
+    }
+</script>
+
 <script>
     function confirmar() {
         const formu = document.querySelector("#formulario");
