@@ -7,6 +7,7 @@ import PDFDocument from "pdfkit"
 import axios from "axios";
 import fs from "fs"
 
+
 import { getUserName } from './mainController.js';
 
 const precio = async (req, res) => {
