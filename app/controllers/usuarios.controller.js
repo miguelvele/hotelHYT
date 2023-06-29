@@ -8,13 +8,10 @@ import axios from "axios";
 import fs from "fs"
 
 const usuario = async (req, res) => {
-    if (req.cookies.ckmp) {
+    
         
         try {
-            const token = jwt.verify(
-                req.cookies.ckmp,
-                process.env.SECRET_KEY
-            )
+           
 
             let ruta = "http://localhost:3000/api/usuarios";
             let option = {
@@ -41,9 +38,7 @@ const usuario = async (req, res) => {
         } catch (error) {
             res.redirect("/");
         }
-    } else {
-        res.redirect("/");
-    }
+    
 };
 
 const guardaru = async(req, res) => {

@@ -3,48 +3,52 @@
 
 <%- include("./partials/head.ejs", {'titulo':'Login'}); %>
 
-	<link rel="stylesheet" href="/css/login2.css">
+<link rel="stylesheet" href="/css/login2.css">
 
-	<body>
-		<div class="page-content">
-			<%- include("./partials/menu.ejs"); %>
+<body>
+    <div class="page-content">
+        <%- include("./partials/menu.ejs"); %>
 
-				<div class="login-form">
-					<img src="/img/icon.png" alt="Logo" />
-					<form  action="login" method="POST">
-						<div class="form-group">
-							<label for="username">Username</label>
-							<input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
-						</div>
-						<div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password">
-						</div>
-						<button type="submit" class="btn btn-primary btn-block">Sign in</button>
-					</form>
+        <div class="login-form">
+            <img src="/img/icon.png" alt="Logo" />
+            <form action="login" method="POST">
+                <div class="form-group">
+                    <label for="userType">Tipo de usuario</label>
+					<select class="form-control" id="userType" name="tipoUsuario">
+						<option value="2">Usuario</option>
+						<option value="1">Administrador</option>
+					  </select>
+                </div>
+                <div class="form-group">
+                    <label for="CORREO">Correo</label>
+                    <input type="email" name="correo" class="form-control" id="correo" placeholder="Ingresa el correo">
+                </div>
+                <div class="form-group">
+                    <label for="CLAVE">Clave</label>
+                    <input type="password" class="form-control" id="clave" name="clave" placeholder="CLAVE">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">iniciar sesion</button>
+            </form>
 
+            <!-- <div class="google-login">
+                        <hr>
+                        <a href="./auth/google" class="btn btn-danger btn-block">Sign in with Google       <i class="fa fa-google"></i></a>
+                        
+                    </div> -->
+            <div class="register-link">
+                <p>Don't have an account? <a href="/registro">Register</a></p>
+            </div>
+        </div>
 
-					<div class="google-login">
-						<hr>
-						<a href="./auth/google" class="btn btn-danger btn-block">Sign in with Google       <i class="fa fa-google"></i></a>
-						
-					</div>
-					<div class="register-link">
-						<p>Don't have an account? <a href="/registro">Register</a></p>
-					</div>
-				</div>
+    </div>
 
-		</div>
+    <!-- Agregamos los archivos JS de Bootstrap -->
+    <script src="/js/index.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
 
-		<!-- Agregamos los archivos JS de Bootstrap -->
-		<script src="/js/index.js"></script>
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
-
-		<script src="/js/bootstrap.min.js"></script>
-
-
-	</body>
+</body>
 
 </html>

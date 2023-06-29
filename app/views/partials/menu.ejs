@@ -20,9 +20,23 @@
                     href="/precio">Precio</a>
                 <a class="btn btn-lg text-white btn-hover-danger "
                     href="/contactenos">Contáctenos</a>
-                <a class="btn btn-danger btn-lg text-white " href="/login"> Iniciar sesión
-                </a>
-            </div>
-        </div>
-    </nav>
-</div>
+                    <div class="navbar-nav m-auto py-0">
+                        <!-- ... otros elementos del menú ... -->
+                
+                        <% if (userName) { %>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle btn btn-danger btn-lg text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <%= userName %>
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+                              </div>
+                            </li>
+                          <% } else { %>
+                            <a class="btn btn-danger btn-lg text-white" href="/login">Iniciar sesión</a>
+                          <% } %>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+<script src="/js/custom.js"></script>

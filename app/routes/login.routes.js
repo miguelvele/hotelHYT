@@ -1,36 +1,47 @@
-import { Router } from "express";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+// import { Router } from "express";
+// import jwt from "jsonwebtoken";
+// import dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 
-const loginRouter = Router();
+// const loginRouter = Router();
 
-loginRouter.get("/google", (req, res) => {
-    const id = req.user.id;
-    const name = req.user.displayName;
-    const email = req.user.emails[0].value;
-    const photo = req.user.photos[0].value;
+// loginRouter.get("/google", (req, res) => {
+//     const id = req.user.id;
+//     const name = req.user.displayName;
+//     const email = req.user.emails[0].value;
+//     const photo = req.user.photos[0].value;
 
-    const payload = {
-        nombre: name,
-        correo: email,
-        foto: photo
-    };
+//     const payload = {
+//         nombre: name,
+//         correo: email,
+//         foto: photo
+//     };
 
-    const token = jwt.sign(
-        payload, 
-        process.env.SECRET_KEY, 
-        {
-            "expiresIn": process.env.EXPIRE_TOKEN
-        });
+//     const token = jwt.sign(
+//         payload, 
+//         process.env.SECRET_KEY, 
+//         {
+//             "expiresIn": process.env.EXPIRE_TOKEN
+//         });
 
-    res.cookie("ckmp", token);
+//     res.cookie("ckmp", token);
 
-    res.redirect("/v1/inicio");
-    // res.render("backOffice", {
-    //     nombre: name
-    // });
-});
+//     res.redirect("/v1/inicio");
+//     // res.render("backOffice", {
+//     //     nombre: name
+//     // });
+// });
 
-export { loginRouter };
+// export { loginRouter };
+
+
+// routes/index.js
+import express from 'express';
+import { loginUser,  logoutUser  } from '../controllers/authController.js';
+const router = express.Router();
+
+router.post('/login', loginUser);
+router.get('/logout', logoutUser);
+
+export default router;

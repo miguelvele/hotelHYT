@@ -7,6 +7,8 @@ import PDFDocument from "pdfkit"
 import axios from "axios";
 import fs from "fs"
 
+import { getUserName } from './mainController.js';
+
 const precio = async (req, res) => {
     
 
@@ -28,6 +30,7 @@ const precio = async (req, res) => {
             res.render("precio", {
                 
                 "datos": datos,
+                userName: getUserName(req.cookies.authToken)
             });
         }
 
