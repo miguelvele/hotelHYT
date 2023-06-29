@@ -57,9 +57,12 @@
 
 
                   <td>
-                    <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
+                    <a href="edithabi?id=<%= elements.CODIGO_USUARIO %>&codigo_tipo_usuario=<%= elements.CODIGO_TIPO_USUARIO %>&documento=<%= elements.DOCUMENTO %>&tipo_documento=<%= elements.TIPO_DOCUMENTO %>&nombre=<%= elements.NOMBRE %>&apellido=<%= elements.APELLIDO %>&correo=<%= elements.CORREO %>&clave=<%= elements.CLAVE %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">
                       <i class="fa fa-edit"></i>
                     </a>
+                    <!-- <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
+                      <i class="fa fa-edit"></i>
+                    </a> -->
                     <a class="btn btn-danger" onclick="confirmar(`<%= elements.NUMERO_HABITACION %>`)">
                       <i class="fa fa-trash"></i>
                     </a>

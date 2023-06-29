@@ -46,7 +46,7 @@ const usuario = async (req, res) => {
     }
 };
 
-const guardar = async(req, res) => {
+const guardaru = async(req, res) => {
     const nuevoUsuario = {
         codigo_tipo_usuario: req.body.CODIGO_TIPO_USUARIO,
         tipo_documento: req.body.TIPO_DOCUMENTO,
@@ -168,6 +168,48 @@ const edituser = async(req, res)=>{
         }
     }
 }
+const guardar = async(req, res)=>{
+    
+           let data = {
+                id:req.query.id,
+                codigo_usuario:req.query.codigo_usuario,
+                codigo_tipo_usuario:req.query.codigo_tipo_usuario,
+                tipo_documento:req.query.tipo_documento,
+                documento:req.query.documento,
+                nombre:req.query.nombre,
+                apellido:req.query.apellido,
+                correo:req.query.correo,
+                clave:req.query.clave,
+                estado:req.query.estado,
+                fecha_creacion:req.query.fecha_creacion,
+            }
+            let metodo = "put";
+        
+
+
+        let ruta = `http://localhost:3000/api/usuarios`;
+
+        let option = {
+            method : metodo,
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body : JSON.stringify(data)
+        }
+        try {
+            const result = await fetch(ruta, option)
+            .then(res=>res.json())
+            .then(data=>{
+                console.log("Datos guardados");
+            })
+            .catch(err=>console.log("erro al consumir api " + err))
+            res.redirect("/v1/usuario");
+        } catch (error) {
+            
+        }
+
+    
+}
 
 const generarpdf = async (req, res) => {
     try {
@@ -251,5 +293,5 @@ const generarpdf = async (req, res) => {
 
 
 export const usuarioController = {
- usuario, guardar, borrar, salir, actualizar, generarpdf, edituser
+ usuario, guardaru , borrar, salir, actualizar, generarpdf, edituser, guardar
 };

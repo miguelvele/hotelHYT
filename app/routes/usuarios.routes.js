@@ -15,6 +15,7 @@ dotenv.config();
 const router = Router();
 
 router.get('/usuario', usuarioController.usuario);
+router.post('/guardaru', usuarioController.guardaru);
 router.post('/guardar', usuarioController.guardar);
 router.get('/borrar', usuarioController.borrar);
 router.get('/salir', usuarioController.salir);
