@@ -8,13 +8,10 @@ import axios from "axios";
 import fs from "fs"
 
 const reservaciones = async (req, res) => {
-    if (req.cookies.ckmp) {
+    
 
         try {
-            const token = jwt.verify(
-                req.cookies.ckmp,
-                process.env.SECRET_KEY
-            )
+            
 
 
 
@@ -35,8 +32,8 @@ const reservaciones = async (req, res) => {
 
 
             res.render("dash", {
-                "nombre": token.nombre,
-                "foto": token.foto,
+                
+                
                 "menu": 3,
                 "datos": datos,
 
@@ -45,9 +42,7 @@ const reservaciones = async (req, res) => {
         } catch (error) {
             res.redirect("/");
         }
-    } else {
-        res.redirect("/");
-    }
+   
 };
 
 const guardarr = async (req, res) => {

@@ -8,13 +8,10 @@ import axios from "axios";
 import fs from "fs"
 
 const habitaciones = async (req, res) => {
-    if (req.cookies.ckmp) {
-        
+    
+
         try {
-            const token = jwt.verify(
-                req.cookies.ckmp,
-                process.env.SECRET_KEY
-            )
+           
 
             let ruta = "http://localhost:3000/api/habitacion";
             let option = {
@@ -32,8 +29,6 @@ const habitaciones = async (req, res) => {
 
 
             res.render("dash", {
-                "nombre": token.nombre,
-                "foto": token.foto,
                 "menu": 2,
                 "datos": datos,
             });
@@ -41,15 +36,13 @@ const habitaciones = async (req, res) => {
         } catch (error) {
             res.redirect("/");
         }
-    } else {
-        res.redirect("/");
-    }
+    
 };
 
 
-const guardarh = async(req, res) => {
+const guardarh = async (req, res) => {
     const nuevaHabitacion = {
-       
+
         codigo_piso: req.body.CODIGO_PISO,
         codigo_categoria: req.body.CODIGO_CATEGORIA,
         codigo_hotel: req.body.CODIGO_HOTEL,
@@ -72,34 +65,34 @@ const guardarh = async(req, res) => {
             res.redirect('/error'); // Redirige a una página de error o a donde desees.
         });
 };
-const borrarh = async (req, res) =>{
+const borrarh = async (req, res) => {
     const id = req.query.id;
 
 
-        try {
-            
+    try {
 
-                const url = `http://localhost:3000/api/habitacion/${id}`;
-                const option={
-                    method:"DELETE"
-                };
-                const result = await fetch(url, option)
-                .then((response) => response.json())
-                .then((data) => {
-                  if (data[0].affectedRows == 1) {
+
+        const url = `http://localhost:3000/api/habitacion/${id}`;
+        const option = {
+            method: "DELETE"
+        };
+        const result = await fetch(url, option)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data[0].affectedRows == 1) {
                     res.redirect(`/v1/habitaciones?success=true&id=${id}`);
-                  } else {
+                } else {
                     console.log("No se pudo borrar mi bro");
                     res.redirect(`/v1/habitaciones?success=false&id=${id}`);
-                  }
-                });
-            } catch (error) {
-              console.error("Error con el token", error);
-              res.redirect(`/v1/habitaciones?success=false&id=${id}`);
-            }
-    
+                }
+            });
+    } catch (error) {
+        console.error("Error con el token", error);
+        res.redirect(`/v1/habitaciones?success=false&id=${id}`);
+    }
+
 };
-const edithabi = async(req, res)=>{
+const edithabi = async (req, res) => {
     const id = req.query.id;
     const codigo_usuario = req.query.codigo_usuario;
     const codigo_tipo_usuario = req.query.codigo_tipo_usuario;
@@ -113,38 +106,37 @@ const edithabi = async(req, res)=>{
     const fecha_creacion = req.query.fecha_creacion;
 
     let datos = {
-        id:id,
-        codigo_usuario:codigo_usuario,
-        codigo_tipo_usuario:codigo_tipo_usuario,
-        tipo_documento:tipo_documento,
-        documento:documento,
-        nombre:nombre,
-        apellido:apellido,
-        correo:correo,
-        clave:clave,
-        estado:estado,
-        fecha_creacion:fecha_creacion
+        id: id,
+        codigo_usuario: codigo_usuario,
+        codigo_tipo_usuario: codigo_tipo_usuario,
+        tipo_documento: tipo_documento,
+        documento: documento,
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
+        clave: clave,
+        estado: estado,
+        fecha_creacion: fecha_creacion
 
-        
+
     }
 
-    if (req.cookies.ckmp){
-        try {
-            const token = jwt.verify(
-                req.cookies.ckmp, 
-                process.env.SECRET_KEY)
-                res.render("dash", {
-                    "nombre": token.nombre,
-                    "foto":token.foto,
-                    "menu" : 5,
-                    "datos" : datos
-                 });
 
-        } catch (error) {
-            console.error("Errro con el token");
-        }
+    try {
+       
+        res.render("dash", {
+            
+           
+            "menu": 5,
+            "datos": datos
+        });
+
+    } catch (error) {
+        console.error("Errro con el token");
     }
+
 }
+
 
 const salir = async (req, res) => {
     res.clearCookie("ckmp");
@@ -152,5 +144,5 @@ const salir = async (req, res) => {
 };
 
 export const habitacionesController = {
-  habitaciones, guardarh, borrarh, salir, edithabi
+    habitaciones, guardarh, borrarh, salir, edithabi
 }

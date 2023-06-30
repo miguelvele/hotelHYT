@@ -9,6 +9,8 @@ import {
   renderRegistro,
   renderReserva,
 } from '../controllers/mainController.js';
+import { requireAuth } from '../middlewares/authMiddleware.js';
+
 
 const route = Router();
 
@@ -18,6 +20,6 @@ route.get('/contactenos', renderContactenos);
 route.get('/', renderIndex);
 route.get('/login', renderLogin);
 route.get('/registro', renderRegistro);
-route.get('/reserva', renderReserva);
+route.get('/reserva',requireAuth, renderReserva);
 
 export default route;

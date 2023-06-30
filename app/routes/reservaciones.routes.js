@@ -7,6 +7,9 @@ import PDFDocument from "pdfkit"
 import axios from "axios";
 import fs from "fs"
 import { reservacionesController } from "../controllers/reservaciones.controller.js";
+
+import { requireAuth, requireAdmin } from '../middlewares/authMiddleware.js'; // Importa los middlewares
+
 import route from "./home.routes.js";
 
 
@@ -14,7 +17,7 @@ dotenv.config();
 
 const router = Router();
 
-router.get('/reservaciones', reservacionesController.reservaciones);
+router.get('/reservaciones',  requireAuth, requireAdmin, reservacionesController.reservaciones);
 router.post('/guardarr', reservacionesController.guardarr);
 router.get('/borrarr', reservacionesController.borrarr);
 router.get('/salir', reservacionesController.salir);

@@ -16,7 +16,7 @@ dotenv.config();
 
 const router = Router();
 
-router.get('/precio',precioController.precio);
+router.get('/precio', precioController.precio);
 
 
 

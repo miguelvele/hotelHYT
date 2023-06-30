@@ -29,8 +29,6 @@ const usuario = async (req, res) => {
 
 
             res.render("dash", {
-                "nombre": token.nombre,
-                "foto": token.foto,
                 "menu": 1,
                 "datos": datos,
             });
@@ -146,14 +144,12 @@ const edituser = async(req, res)=>{
         
     }
 
-    if (req.cookies.ckmp){
+    
         try {
-            const token = jwt.verify(
-                req.cookies.ckmp, 
-                process.env.SECRET_KEY)
+            
                 res.render("dash", {
-                    "nombre": token.nombre,
-                    "foto":token.foto,
+                    
+            
                     "menu" : 4,
                     "datos" : datos
                  });
@@ -161,7 +157,7 @@ const edituser = async(req, res)=>{
         } catch (error) {
             console.error("Errro con el token");
         }
-    }
+    
 }
 const guardar = async(req, res)=>{
     

@@ -14,7 +14,7 @@ import fs from "fs"
 
             res.render("dash", {
                 
-                "menu": 0
+                "menu": 0,
             });
 
         } catch (error) {
