@@ -52,7 +52,7 @@ const guardaru = async(req, res) => {
         fecha_creacion: req.body.FECHA_CREACION
     };
 
-    axios.post('http://localhost:3000/api/usuarios', nuevoUsuario)
+    axios.post(process.env.API + 'usuarios', nuevoUsuario)
         .then(response => {
             console.log(response.data);
             // Aquí puedes realizar alguna acción adicional o mostrar un mensaje de éxito.
@@ -73,7 +73,7 @@ const borrar = async (req, res) =>{
         try {
             
 
-                const url = `http://localhost:3000/api/usuarios/${id}`;
+                const url = process.env.API + 'usuarios' + `/${id}`;
                 const option={
                     method:"DELETE"
                 };
@@ -178,7 +178,7 @@ const guardar = async(req, res)=>{
         
 
 
-        let ruta = `http://localhost:3000/api/usuarios`;
+        let ruta = process.env.API + 'usuarios';
 
         let option = {
             method : metodo,
@@ -207,7 +207,7 @@ const generarpdf = async (req, res) => {
         const formato = req.body.formato; // Obtener el parámetro "formato" de la solicitud POST
 
         // Hacer una solicitud GET a la API para obtener la información
-        const response = await axios.get('http://localhost:3000/api/usuarios');
+        const response = await axios.get( process.env.API+'usuarios');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
 
         // Mostrar información por consola
