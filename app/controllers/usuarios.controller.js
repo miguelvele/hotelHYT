@@ -5,6 +5,7 @@ import fetch from "node-fetch";
 import excel from "exceljs"
 import PDFDocument from "pdfkit"
 import axios from "axios";
+import moment from 'moment-timezone';
 
 import fs from "fs"
 
@@ -233,9 +234,8 @@ const generarpdf = async (req, res) => {
             doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
             // Agregar la fecha y hora exacta de generación del reporte
             doc.fontSize(12);
-            const fechaActual = new Date();
-            const fechaFormateada = fechaActual.toLocaleString();
-            doc.text('Fecha de generación de reporte: ' + fechaFormateada, 10, 20);
+            const fechaActual = moment().tz('America/Bogota').format('YYYY-MM-DD h:mm:ss A');
+            doc.text('Fecha de generación de reporte: ' + fechaActual, 10, 20);
             // Leer la imagen
             const img = fs.readFileSync('public/img/icon.png');
 
