@@ -6,9 +6,7 @@ const loginUser = async (req, res) => {
   const { correo, clave, tipoUsuario } = req.body;
 
   // Validación de campos vacíos
-  if (correo === '' || clave === '' || tipoUsuario === '') {
-    return res.status(400).json({ message: 'Todos los campos son obligatorios' });
-  }
+  
 
   try {
     const response = await axios.get('http://localhost:3000/api/usuarios');
@@ -30,17 +28,17 @@ const loginUser = async (req, res) => {
 
     // Generación del token JWT
     const token = jwt.sign({ id: user.CODIGO_USUARIO, name: user.NOMBRE, type: user.CODIGO_TIPO_USUARIO }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      });   
+      expiresIn: '1h',
+    }); 
 
     // Envío del token en la cookie
     res.cookie('authToken', token, { httpOnly: true, secure: process.env.NODE_ENV !== 'development' });
     console.log('Token JWT:', token); // Agrega esta línea para depurar
     // Redireccionar según el tipo de usuario
     if (user.CODIGO_TIPO_USUARIO === 1) {
-        res.redirect('/v1/inicio')
+      res.redirect('/v1/inicio')
     } else if (user.CODIGO_TIPO_USUARIO === 2) {
-        res.redirect('/precio')
+      res.redirect('/precio')
 
     } else {
       res.status(400).json({ message: 'Tipo de usuario no reconocido' });
@@ -51,9 +49,9 @@ const loginUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-    res.clearCookie('authToken');
-    res.redirect('/');
-  };
+  res.clearCookie('authToken');
+  res.redirect('/');
+};
 
 
 

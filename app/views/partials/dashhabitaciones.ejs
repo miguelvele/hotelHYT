@@ -45,7 +45,15 @@
                     <%= elements.NUMERO_HABITACION %>
                   </td>
                   <td>
-                    <%= elements.CODIGO_ESTADO_HABITACION %>
+                    <% if (elements.CODIGO_ESTADO_HABITACION === 1) { %>
+                      Ocupada
+                    <% } else if (elements.CODIGO_ESTADO_HABITACION === 2) { %>
+                      Disponible
+                    <% } else if (elements.CODIGO_ESTADO_HABITACION === 3) { %>
+                      En limpieza
+                    <% } else { %>
+                      Desconocido
+                    <% } %>
                   </td>
                   <td>
                     <%= elements.DETALLE %>
@@ -57,7 +65,7 @@
 
 
                   <td>
-                    <a href="edithabi?id=<%= elements.CODIGO_USUARIO %>&codigo_tipo_usuario=<%= elements.CODIGO_TIPO_USUARIO %>&documento=<%= elements.DOCUMENTO %>&tipo_documento=<%= elements.TIPO_DOCUMENTO %>&nombre=<%= elements.NOMBRE %>&apellido=<%= elements.APELLIDO %>&correo=<%= elements.CORREO %>&clave=<%= elements.CLAVE %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">
+                    <a href="edithabi?numero_habitacion=<%= elements.NUMERO_HABITACION %>&codigo_piso=<%= elements.CODIGO_PISO %>&codigo_categoria=<%= elements.CODIGO_CATEGORIA %>&codigo_hotel=<%= elements.CODIGO_HOTEL %>&codigo_estado_habitacion=<%= elements.CODIGO_ESTADO_HABITACION %>&detalle=<%= elements.DETALLE %>&precio=<%= elements.PRECIO %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">                      
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">

@@ -13,7 +13,7 @@ import { getUserName } from './mainController.js';
 const precio = async (req, res) => {
     
 
-            let ruta = "http://localhost:3000/api/habitacion";
+            let ruta = process.env.API + 'habitacion';
             let option = {
                 method: "GET",
             }

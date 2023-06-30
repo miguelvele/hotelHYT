@@ -4,20 +4,22 @@ import {
   renderImagenes,
   renderServicios,
   renderContactenos,
-  renderIndex,
+  renderHabitaciones,
   renderLogin,
   renderRegistro,
   renderReserva,
 } from '../controllers/mainController.js';
-import { requireAuth } from '../middlewares/authMiddleware.js';
+import { requireAuth, requireAuthJSON} from '../middlewares/authMiddleware.js';
 
 
 const route = Router();
-
+route.get('/check-auth', requireAuthJSON, (req, res) => {
+  res.status(200).json({ message: 'Autenticado' });
+});
 route.get('/imagenes', renderImagenes);
 route.get('/servicios', renderServicios);
 route.get('/contactenos', renderContactenos);
-route.get('/', renderIndex);
+route.get('/', renderHabitaciones);
 route.get('/login', renderLogin);
 route.get('/registro', renderRegistro);
 route.get('/reserva',requireAuth, renderReserva);

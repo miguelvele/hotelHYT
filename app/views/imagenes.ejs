@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <%- include("./partials/head.ejs", {'titulo':'Imagenes'}); %>
-
-
 <body>
     <!--Barra de navegacion-->
     <div class="page-content">
@@ -11,124 +8,53 @@
 
     <!--Contenido-->
     <div class=" container mt-4">
-
-
-
         <div class="row row-cols-1 row-cols-md-3">
+            <% const rooms = [
+                {
+                    title: 'Habitación Doble',
+                    description: 'Habitación amplia con dos camas individuales, ideal para viajeros que buscan comodidad y privacidad.',
+                    image: '/img/cabaña.jpg'
+                },
+                {
+                    title: 'Habitación Familiar',
+                    description: 'Espaciosa habitación familiar con camas cómodas y área de estar, perfecta para familias con niños.',
+                    image: '/img/cabaña.jpg'
+                },
+                {
+                    title: 'Suite de Lujo',
+                    description: 'Una lujosa suite con una cama king size, sala de estar y todas las comodidades para una estancia inolvidable.',
+                    image: '/img/cabaña.jpg'
+                },
+                {
+                    title: 'Habitación Individual',
+                    description: 'Acogedora habitación para una persona con una cama individual y todas las comodidades necesarias para una estancia confortable.',
+                    image: '/img/cabaña.jpg'
+                },
+                {
+                    title: 'Bungalow',
+                    description: 'Disfruta de una estancia privada y tranquila en nuestro bungalow, rodeado de naturaleza y con todas las comodidades.',
+                    image: '/img/cabaña.jpg'
+                },
+                {
+                    title: 'Habitación Triple',
+                    description: 'Amplia habitación con tres camas individuales, ideal para grupos de amigos o familias que buscan un espacio cómodo para descansar.',
+                    image: '/img/cabaña.jpg'
+                }
+            ] %>
+            <% rooms.forEach(room => { %>
             <div class="col mb-4">
                 <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
+                    <img src="<%= room.image %>" class="card-img-top" alt="<%= room.title %>">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <h5 class="card-title"><%= room.title %></h5>
+                        <p class="card-text"><%= room.description %></p>
                     </div>
                 </div>
             </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="/img/cabaña.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
+            <% }) %>
         </div>
     </div>
     </div>
     <%- include("./partials/footer.ejs"); %>
-
 </body>
-
 </html>

@@ -4,7 +4,31 @@ const requireAuth = (req, res, next) => {
   const token = req.cookies.authToken;
 
   if (!token) {
-    return res.status(401).json({ message: 'Debe iniciar sesión para acceder a este recurso' });
+    return res.redirect('/');
+      }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.redirect('/');
+    }
+};
+
+const requireAdmin = (req, res, next) => {
+  if (req.user.type !== 1) {
+    return res.redirect('/');
+    }
+
+  next();
+};
+
+const requireAuthJSON = (req, res, next) => {
+  const token = req.cookies.authToken;
+
+  if (!token) {
+    return res.status(401).json({ customMessage: 'Debe iniciar sesión para acceder a este recurso' });
   }
 
   try {
@@ -12,16 +36,8 @@ const requireAuth = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Token inválido' });
+    return res.status(401).json({ customMessage: 'Token inválido' });
   }
 };
 
-const requireAdmin = (req, res, next) => {
-  if (req.user.type !== 1) {
-    return res.status(403).json({ message: 'No tiene permiso para acceder a este recurso' });
-  }
-
-  next();
-};
-
-export { requireAuth, requireAdmin };
+export { requireAuth, requireAdmin, requireAuthJSON };

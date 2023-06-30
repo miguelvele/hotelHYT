@@ -1,7 +1,20 @@
 
 // mainController.js
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
+
+export const renderHabitaciones = async (req, res) => {
+  try {
+    const response = await axios.get('http://localhost:3000/api/habitacion');
+    const habitaciones = response.data;
+    res.render('index', { userName: getUserName(req.cookies.authToken), habitaciones });
+  } catch (error) {
+    console.error('Error al obtener las habitaciones:', error);
+    res.render('index', {
+       userName: getUserName(req.cookies.authToken), habitaciones: [] });
+  }
+};
 export const renderImagenes = (req, res) => {
   res.render('imagenes.ejs', { userName: getUserName(req.cookies.authToken) });
 };
@@ -14,9 +27,6 @@ export const renderContactenos = (req, res) => {
   res.render('contactenos.ejs', { userName: getUserName(req.cookies.authToken) });
 };
 
-export const renderIndex = (req, res) => {
-  res.render('index', { userName: getUserName(req.cookies.authToken) });
-};
 
 export const renderLogin = (req, res) => {
   res.render('login.ejs', { userName: getUserName(req.cookies.authToken) });

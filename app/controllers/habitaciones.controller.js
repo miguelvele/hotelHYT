@@ -93,33 +93,27 @@ const borrarh = async (req, res) => {
 
 };
 const edithabi = async (req, res) => {
-    const id = req.query.id;
-    const codigo_usuario = req.query.codigo_usuario;
-    const codigo_tipo_usuario = req.query.codigo_tipo_usuario;
-    const tipo_documento = req.query.tipo_documento;
-    const documento = req.query.documento;
-    const nombre = req.query.nombre;
-    const apellido = req.query.apellido;
-    const correo = req.query.correo;
-    const clave = req.query.clave;
-    const estado = req.query.estado;
-    const fecha_creacion = req.query.fecha_creacion;
+    const numero_habitacion = req.query.numero_habitacion;
+const codigo_piso = req.query.codigo_piso;
+const codigo_categoria = req.query.codigo_categoria;
+const codigo_hotel = req.query.codigo_hotel;
+const codigo_estado_habitacion = req.query.codigo_estado_habitacion;
+const detalle = req.query.detalle;
+const precio = req.query.precio;
+const estado = req.query.estado;
+const fecha_creacion = req.query.fecha_creacion;
 
-    let datos = {
-        id: id,
-        codigo_usuario: codigo_usuario,
-        codigo_tipo_usuario: codigo_tipo_usuario,
-        tipo_documento: tipo_documento,
-        documento: documento,
-        nombre: nombre,
-        apellido: apellido,
-        correo: correo,
-        clave: clave,
-        estado: estado,
-        fecha_creacion: fecha_creacion
-
-
-    }
+let datos = {
+    numero_habitacion: numero_habitacion,
+    codigo_piso: codigo_piso,
+    codigo_categoria: codigo_categoria,
+    codigo_hotel: codigo_hotel,
+    codigo_estado_habitacion: codigo_estado_habitacion,
+    detalle: detalle,
+    precio: precio,
+    estado: estado,
+    fecha_creacion: fecha_creacion
+}
 
 
     try {

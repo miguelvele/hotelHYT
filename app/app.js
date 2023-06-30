@@ -33,7 +33,7 @@ app.set("view engine", "ejs");
 // MIDDLEWARES
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(__dirname + '../public'));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(cookieParser());
 
 // TODAS LAS RUTAS Y PERMISOS DE GOOGLE
@@ -46,7 +46,6 @@ app.use(cookieParser());
 // }), loginRouter);
 
 app.use("/", routerLogin);
-
 app.use("/", route);
 app.use("/", precio);
 app.use("/v1", inicio);
