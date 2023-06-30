@@ -16,7 +16,7 @@ const reservaciones = async (req, res) => {
 
 
 
-            let ruta = "http://localhost:3000/api/reservas";
+            let ruta = process.env.API + 'reservas';
             let option = {
                 method: "GET",
             }

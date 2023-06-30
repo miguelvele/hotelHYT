@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
+
 const loginUser = async (req, res) => {
   console.log('req.body:', req.body);
   const { correo, clave, tipoUsuario } = req.body;
@@ -9,7 +10,7 @@ const loginUser = async (req, res) => {
   
 
   try {
-    const response = await axios.get('http://localhost:3000/api/usuarios');
+    const response = await axios.get(process.env.API +'usuarios');
     const usersData = response.data;
     const users = usersData[0];
     const user = users.find((u) => u.CORREO === correo);

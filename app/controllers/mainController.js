@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export const renderHabitaciones = async (req, res) => {
   try {
-    const response = await axios.get('http://localhost:3000/api/habitacion');
+    const response = await axios.get(process.env.API + 'habitacion');
     const habitaciones = response.data;
     res.render('index', { userName: getUserName(req.cookies.authToken), habitaciones });
   } catch (error) {

@@ -13,7 +13,7 @@ const usuario = async (req, res) => {
         try {
             // process.env.API + 'pro' + `/${id}`;
 
-            let ruta = "http://localhost:3000/api/usuarios";
+            let ruta = process.env.API + 'usuarios';
             let option = {
                 method: "GET",
             }

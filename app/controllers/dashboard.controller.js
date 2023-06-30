@@ -10,7 +10,7 @@ import fs from "fs"
 
 const getRoomData = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/api/habitacion");
+    const response = await axios.get(process.env.API +'habitacion');
     const data = response.data[0];
     let roomCount = {
       limpieza: 0,

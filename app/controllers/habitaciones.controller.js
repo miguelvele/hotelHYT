@@ -13,7 +13,7 @@ const habitaciones = async (req, res) => {
         try {
            
 
-            let ruta = "http://localhost:3000/api/habitacion";
+            let ruta = process.env.API + 'habitacion';
             let option = {
                 method: "GET",
             }
@@ -53,7 +53,7 @@ const guardarh = async (req, res) => {
         fecha_creacion: req.body.FECHA_CREACION
     };
 
-    axios.post('http://localhost:3000/api/habitacion', nuevaHabitacion)
+    axios.post(process.env.API + 'habitacion', nuevaHabitacion)
         .then(response => {
             console.log(response.data);
             // Aquí puedes realizar alguna acción adicional o mostrar un mensaje de éxito.
@@ -72,7 +72,7 @@ const borrarh = async (req, res) => {
     try {
 
 
-        const url = `http://localhost:3000/api/habitacion/${id}`;
+        const url = process.env.API + 'habitacion' + `/${id}`;
         const option = {
             method: "DELETE"
         };
