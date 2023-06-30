@@ -7,7 +7,9 @@ const loginUser = async (req, res) => {
   const { correo, clave, tipoUsuario } = req.body;
 
   // Validación de campos vacíos
-  
+  if (correo === '' || clave === '' || tipoUsuario === '') {
+    return res.json({ error: 'Todos los campos son obligatorios' });
+  }
 
   try {
     const response = await axios.get(process.env.API +'usuarios');
@@ -16,15 +18,15 @@ const loginUser = async (req, res) => {
     const user = users.find((u) => u.CORREO === correo);
 
     if (!user) {
-      return res.status(401).json({ message: 'Usuario no encontrado' });
+      return res.json({ error: 'Usuario no encontrado' });
     }
 
     if (user.CLAVE !== clave) {
-      return res.status(401).json({ message: 'Contraseña incorrecta' });
+      return res.json({ error: 'Usuario o contraseña incorrecta' });
     }
 
     if (user.CODIGO_TIPO_USUARIO !== parseInt(tipoUsuario)) {
-      return res.status(403).json({ message: 'No tiene permiso para acceder a este recurso' });
+      return res.json({ error: 'No tiene permiso para acceder a este recurso' });
     }
 
     // Generación del token JWT
@@ -37,12 +39,12 @@ const loginUser = async (req, res) => {
     console.log('Token JWT:', token); // Agrega esta línea para depurar
     // Redireccionar según el tipo de usuario
     if (user.CODIGO_TIPO_USUARIO === 1) {
-      res.redirect('/v1/inicio')
+      res.json({ redirect: "/v1/inicio" });
     } else if (user.CODIGO_TIPO_USUARIO === 2) {
-      res.redirect('/precio')
+      res.json({ redirect: "/precio" });
 
     } else {
-      res.status(400).json({ message: 'Tipo de usuario no reconocido' });
+      res.status(400).json({ error: 'Tipo de usuario no reconocido' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener datos de usuarios', error: error.message });
@@ -56,4 +58,5 @@ export const logoutUser = (req, res) => {
 
 
 
-export { loginUser };
+
+export { loginUser};

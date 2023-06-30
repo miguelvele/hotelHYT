@@ -13,6 +13,7 @@ import usuario from './routes/usuarios.routes.js';
 import habitaciones from './routes/habitaciones.routes.js';
 import precio from './routes/precio.routes.js';
 import reservaciones from './routes/reservaciones.routes.js';
+import registro from './routes/registro.routes.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import routerLogin from './routes/login.routes.js';
@@ -44,7 +45,7 @@ app.use(cookieParser());
 //     ],
 //     session: false
 // }), loginRouter);
-
+app.use("/", registro);
 app.use("/", routerLogin);
 app.use("/", route);
 app.use("/", precio);

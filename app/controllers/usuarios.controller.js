@@ -5,41 +5,42 @@ import fetch from "node-fetch";
 import excel from "exceljs"
 import PDFDocument from "pdfkit"
 import axios from "axios";
+
 import fs from "fs"
 
 const usuario = async (req, res) => {
-    
-        
-        try {
-            // process.env.API + 'pro' + `/${id}`;
-
-            let ruta = process.env.API + 'usuarios';
-            let option = {
-                method: "GET",
-            }
-            let datos = {};
-            const result = await fetch(ruta, option)
-                .then(response => response.json())
-                .then(data => {
-                    datos = data[0]
-                    //console.log(data[0]);
-                })
-                .catch(err => console.error("error en peticion" + err))
 
 
+    try {
+        // process.env.API + 'pro' + `/${id}`;
 
-            res.render("dash", {
-                "menu": 1,
-                "datos": datos,
-            });
-
-        } catch (error) {
-            res.redirect("/");
+        let ruta = process.env.API + 'usuarios';
+        let option = {
+            method: "GET",
         }
-    
+        let datos = {};
+        const result = await fetch(ruta, option)
+            .then(response => response.json())
+            .then(data => {
+                datos = data[0]
+                //console.log(data[0]);
+            })
+            .catch(err => console.error("error en peticion" + err))
+
+
+
+        res.render("dash", {
+            "menu": 1,
+            "datos": datos,
+        });
+
+    } catch (error) {
+        res.redirect("/");
+    }
+
 };
 
-const guardaru = async(req, res) => {
+const guardaru = async (req, res) => {
     const nuevoUsuario = {
         codigo_tipo_usuario: req.body.CODIGO_TIPO_USUARIO,
         tipo_documento: req.body.TIPO_DOCUMENTO,
@@ -66,32 +67,32 @@ const guardaru = async(req, res) => {
 };
 
 
-const borrar = async (req, res) =>{
+const borrar = async (req, res) => {
     const id = req.query.id;
 
 
-        try {
-            
+    try {
 
-                const url = process.env.API + 'usuarios' + `/${id}`;
-                const option={
-                    method:"DELETE"
-                };
-                const result = await fetch(url, option)
-                .then((response) => response.json())
-                .then((data) => {
-                  if (data[0].affectedRows == 1) {
+
+        const url = process.env.API + 'usuarios' + `/${id}`;
+        const option = {
+            method: "DELETE"
+        };
+        const result = await fetch(url, option)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data[0].affectedRows == 1) {
                     res.redirect(`/v1/usuario?success=true&id=${id}`);
-                  } else {
+                } else {
                     console.log("No se pudo borrar mi bro");
                     res.redirect(`/v1/usuario?success=false&id=${id}`);
-                  }
-                });
-            } catch (error) {
-              console.error("Error con el token", error);
-              res.redirect(`/v1/usuario?success=false&id=${id}`);
-            }
-    
+                }
+            });
+    } catch (error) {
+        console.error("Error con el token", error);
+        res.redirect(`/v1/usuario?success=false&id=${id}`);
+    }
+
 };
 
 const salir = async (req, res) => {
@@ -115,7 +116,7 @@ const actualizar = async (req, res) => {
             res.status(500).send('Error al actualizar los datos');
         });
 };
-const edituser = async(req, res)=>{
+const edituser = async (req, res) => {
     const id = req.query.id;
     const codigo_usuario = req.query.codigo_usuario;
     const codigo_tipo_usuario = req.query.codigo_tipo_usuario;
@@ -129,77 +130,77 @@ const edituser = async(req, res)=>{
     const fecha_creacion = req.query.fecha_creacion;
 
     let datos = {
-        id:id,
-        codigo_usuario:codigo_usuario,
-        codigo_tipo_usuario:codigo_tipo_usuario,
-        tipo_documento:tipo_documento,
-        documento:documento,
-        nombre:nombre,
-        apellido:apellido,
-        correo:correo,
-        clave:clave,
-        estado:estado,
-        fecha_creacion:fecha_creacion
+        id: id,
+        codigo_usuario: codigo_usuario,
+        codigo_tipo_usuario: codigo_tipo_usuario,
+        tipo_documento: tipo_documento,
+        documento: documento,
+        nombre: nombre,
+        apellido: apellido,
+        correo: correo,
+        clave: clave,
+        estado: estado,
+        fecha_creacion: fecha_creacion
 
-        
+
     }
 
-    
-        try {
-            
-                res.render("dash", {
-                    
-            
-                    "menu" : 4,
-                    "datos" : datos
-                 });
 
-        } catch (error) {
-            console.error("Errro con el token");
-        }
-    
+    try {
+
+        res.render("dash", {
+
+
+            "menu": 4,
+            "datos": datos
+        });
+
+    } catch (error) {
+        console.error("Errro con el token");
+    }
+
 }
-const guardar = async(req, res)=>{
-    
-           let data = {
-                id:req.query.id,
-                codigo_usuario:req.query.codigo_usuario,
-                codigo_tipo_usuario:req.query.codigo_tipo_usuario,
-                tipo_documento:req.query.tipo_documento,
-                documento:req.query.documento,
-                nombre:req.query.nombre,
-                apellido:req.query.apellido,
-                correo:req.query.correo,
-                clave:req.query.clave,
-                estado:req.query.estado,
-                fecha_creacion:req.query.fecha_creacion,
-            }
-            let metodo = "put";
-        
+const guardar = async (req, res) => {
+
+    let data = {
+        id: req.query.id,
+        codigo_usuario: req.query.codigo_usuario,
+        codigo_tipo_usuario: req.query.codigo_tipo_usuario,
+        tipo_documento: req.query.tipo_documento,
+        documento: req.query.documento,
+        nombre: req.query.nombre,
+        apellido: req.query.apellido,
+        correo: req.query.correo,
+        clave: req.query.clave,
+        estado: req.query.estado,
+        fecha_creacion: req.query.fecha_creacion,
+    }
+    let metodo = "put";
 
 
-        let ruta = process.env.API + 'usuarios';
 
-        let option = {
-            method : metodo,
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body : JSON.stringify(data)
-        }
-        try {
-            const result = await fetch(ruta, option)
-            .then(res=>res.json())
-            .then(data=>{
+    let ruta = process.env.API + 'usuarios';
+
+    let option = {
+        method: metodo,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+    try {
+        const result = await fetch(ruta, option)
+            .then(res => res.json())
+            .then(data => {
                 console.log("Datos guardados");
             })
-            .catch(err=>console.log("erro al consumir api " + err))
-            res.redirect("/v1/usuario");
-        } catch (error) {
-            
-        }
+            .catch(err => console.log("erro al consumir api " + err))
+        res.redirect("/v1/usuario");
+    } catch (error) {
 
-    
+    }
+
+
 }
 
 const generarpdf = async (req, res) => {
@@ -207,7 +208,7 @@ const generarpdf = async (req, res) => {
         const formato = req.body.formato; // Obtener el parámetro "formato" de la solicitud POST
 
         // Hacer una solicitud GET a la API para obtener la información
-        const response = await axios.get( process.env.API+'usuarios');
+        const response = await axios.get(process.env.API + 'usuarios');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
 
         // Mostrar información por consola
@@ -228,24 +229,43 @@ const generarpdf = async (req, res) => {
             doc.pipe(res);
 
             // Agregar contenido al PDF
-            doc.fontSize(20).text('Información del Usuario', { align: 'center' });
+            doc.fontSize(20).text('Información de los Usuario', { align: 'center' });
+            doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
+            // Agregar la fecha y hora exacta de generación del reporte
+            doc.fontSize(12);
+            const fechaActual = new Date();
+            const fechaFormateada = fechaActual.toLocaleString();
+            doc.text('Fecha de generación de reporte: ' + fechaFormateada, 10, 20);
             // Leer la imagen
             const img = fs.readFileSync('public/img/icon.png');
 
             // Incrustar la imagen en el PDF  
             doc.image(img, { width: 200 });
-            userData.forEach((usuarios) => {
-                doc.fontSize(12).text(`ID: ${usuarios.CODIGO_USUARIO}`);
-                doc.fontSize(12).text(`Documento: ${usuarios.DOCUMENTO}`);
-                doc.fontSize(12).text(`Nombre: ${usuarios.NOMBRE}`);
-                doc.fontSize(12).text(`Apellido: ${usuarios.APELLIDO}`);
-                doc.fontSize(12).text(`Correo: ${usuarios.CORREO}`);
 
+            // Cambiar la posición 'y' después de incrustar la imagen
+            let y = doc.y + 20;
 
+            // Definir la tabla y sus columnas
+            const headers = ['ID', 'Documento', 'Nombre', 'Apellido', 'Correo'];
 
-                doc.moveDown(); // Agrega un espacio entre cada usuario
+            // Dibujar la tabla
+            doc.fontSize(12);
+            doc.font('Helvetica-Bold');
+            headers.forEach((header, i) => {
+                doc.text(header, 10 + i * 100, y);
             });
 
+            // Dibujar los datos de la tabla
+            doc.font('Helvetica');
+            y += 25;
+            userData.forEach(user => {
+                doc.text(user.CODIGO_USUARIO, 10, y);
+                doc.text(user.DOCUMENTO, 110, y);
+                doc.text(user.NOMBRE, 210, y);
+                doc.text(user.APELLIDO, 310, y);
+                doc.text(user.CORREO, 410, y);
+                y += 25;
+            });
             // Finalizar el PDF
             doc.end();
         } else if (formato === 'excel') {
@@ -261,8 +281,10 @@ const generarpdf = async (req, res) => {
 
             // Agregar filas con datos
             userData.forEach((usuarios) => {
-                worksheet.addRow({ nombre: usuarios.NOMBRE,
-                     codigo_usuario: usuarios.CODIGO_USUARIO });
+                worksheet.addRow({
+                    nombre: usuarios.NOMBRE,
+                    codigo_usuario: usuarios.CODIGO_USUARIO
+                });
             });
 
             // Stream el contenido Excel a la respuesta HTTP
@@ -284,5 +306,5 @@ const generarpdf = async (req, res) => {
 
 
 export const usuarioController = {
- usuario, guardaru , borrar, salir, actualizar, generarpdf, edituser, guardar
+    usuario, guardaru, borrar, salir, actualizar, generarpdf, edituser, guardar
 };

@@ -9,7 +9,7 @@
 		<%- include("./partials/menu.ejs"); %>
 		<div class="container mt-4 col-6 rounded shadow p-4">
 
-		<form action="guardar" method="post">
+		<form action="guardar" method="post"  id="registro-form">
             <div class="modal-header">
             <h4 class="modal-title">Ingrese el nuevo usuario</h4>
           </div>
@@ -17,9 +17,8 @@
           <div class="modal-body">
             <div class="form-group">
             <label>Tipo de Usuario</label>
-            <select name="CODIGO_TIPO_USUARIO" class="form-control" disabled>
+            <select name="CODIGO_TIPO_USUARIO" class="form-control" >
               <option  value="2">USUARIO</option>
-                <option value="1">ADMIN</option>
             </select>
           </div>
           </div>
@@ -76,7 +75,7 @@
             <div class="modal-body">
               <div class="form-group">
               <label>Estado</label>
-              <select name="ESTADO" class="form-control" disabled>
+              <select name="ESTADO" class="form-control" >
                 <option  value="1">Activo</option>
               </select>
             </div>
@@ -103,8 +102,7 @@
 	</div>
 
 	<%- include("./partials/footer.ejs"); %>
-
-
+ 
 </body>
 
 </html>
