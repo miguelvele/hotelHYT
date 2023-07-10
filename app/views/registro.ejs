@@ -4,105 +4,191 @@
 <%- include("./partials/head.ejs", {'titulo':'registro'}); %>
 
 
-<body>
-	<div class="page-content">
-		<%- include("./partials/menu.ejs"); %>
-		<div class="container mt-4 col-6 rounded shadow p-4">
+  <body>
+    <div class="page-content">
+      <%- include("./partials/menu.ejs"); %>
+        <div class="container mt-4 col-6 rounded shadow p-4">
 
-		<form action="guardar" method="post"  id="registro-form">
+          <form action="guardar" method="post" id="registro-form">
+            <div id="error-message" class="alert alert-danger d-none mt-2"></div>
             <div class="modal-header">
-            <h4 class="modal-title">Ingrese el nuevo usuario</h4>
-          </div>
-          
-          <div class="modal-body">
-            <div class="form-group">
-            <label>Tipo de Usuario</label>
-            <select name="CODIGO_TIPO_USUARIO" class="form-control" >
-              <option  value="2">USUARIO</option>
-            </select>
-          </div>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-            <label>Tipo de Documento</label>
-            <select name="TIPO_DOCUMENTO" class="form-control">
-              <option  value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                <option value="Pasaporte">Pasaporte</option>
-            </select>
-          </div>
-          </div>
-          
-          <div class="modal-body">
-            <label>Documento</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
+              <h4 class="modal-title">Ingrese el nuevo usuario</h4>
             </div>
-          </div>
-          <div class="modal-body">
-            <label>Nombre</label>
 
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Apellido</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Correo</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Clave</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="CLAVE" type="text" class="form-control" placeholder="Ingrese una Clave">
-            </div>
-          </div>
             <div class="modal-body">
               <div class="form-group">
-              <label>Estado</label>
-              <select name="ESTADO" class="form-control" >
-                <option  value="1">Activo</option>
-              </select>
+                <label>Tipo de Usuario</label>
+                <select name="CODIGO_TIPO_USUARIO" class="form-control">
+                  <option value="2">USUARIO</option>
+                </select>
+              </div>
             </div>
-         </div>
-          <div class="modal-body">
-            <label>Fecha de Creacion</label>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Tipo de Documento</label>
+                <select name="TIPO_DOCUMENTO" class="form-control">
+                  <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
+                  <option value="Pasaporte">Pasaporte</option>
+                </select>
+              </div>
+            </div>
 
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="FECHA_CREACION" type="text" class="form-control" >
+            <div class="modal-body">
+              <label>Documento</label>
+
+              <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
+              </div>
             </div>
-          </div>
-         
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-success">Guardar</button>
-          </div>
+            <div class="modal-body">
+              <label>Nombre</label>
+
+              <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
+              </div>
+            </div>
+            <div class="modal-body">
+              <label>Apellido</label>
+
+              <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
+              </div>
+            </div>
+            <div class="modal-body">
+              <label>Correo</label>
+
+              <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
+                <div class="invalid-feedback"></div> 
+              </div>
+            </div>
+            <div class="modal-body">
+              <label>Clave</label>
+
+              <div class="input-group">
+                <input name="CLAVE" type="password" class="form-control" placeholder="Ingrese una Clave">
+                <div class="input-group-append">
+                  <button id="toggle-password" class="btn btn-outline-secondary" type="button">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Estado</label>
+                <select name="ESTADO" class="form-control">
+                  <option value="1">Activo</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-body">
+              <label>Fecha de Creacion</label>
+
+              <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input name="FECHA_CREACION" id="fecha" type="text" class="form-control">
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <a href="/login" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</a>
+              <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
           </form>
-		</div>
+        </div>
 
 
 
 
-	</div>
+    </div>
 
-	<%- include("./partials/footer.ejs"); %>
- 
-</body>
+    <%- include("./partials/footer.ejs"); %>
+      <script>
+        const setColombianDate = () => {
+          const colombianDate = moment().tz('America/Bogota');
+          const formattedDate = colombianDate.format('YYYY-MM-D');
+          return formattedDate;
+        };
+
+        const fechaInput = document.getElementById('fecha');
+        fechaInput.value = setColombianDate();
+        fechaInput.readOnly = true;
+
+        function validarCampos() {
+  const campos = [
+    'CODIGO_TIPO_USUARIO',
+    'TIPO_DOCUMENTO',
+    'DOCUMENTO',
+    'NOMBRE',
+    'APELLIDO',
+    'CORREO',
+    'CLAVE',
+    'ESTADO',
+    'FECHA_CREACION',
+  ];
+
+  let isValid = true;
+
+  campos.forEach((campo) => {
+    const input = document.querySelector(`[name="${campo}"]`);
+    const errorDiv = input.parentElement.querySelector('.invalid-feedback');
+
+    if (campo === 'CORREO') {
+      if (!input.value.trim()) {
+        isValid = false;
+        input.classList.add('is-invalid');
+        errorDiv.textContent = 'Por favor, complete todos los campos.';
+      } else if (!input.value.includes('@')) {
+        isValid = false;
+        input.classList.add('is-invalid');
+        errorDiv.textContent = 'Por favor, ingrese un correo electrónico válido.';
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    } else {
+      if (!input.value.trim()) {
+        isValid = false;
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    }
+  });
+
+  return isValid;
+}
+document.getElementById('registro-form').addEventListener('submit', (event) => {
+  const isValid = validarCampos();
+
+  if (!isValid) {
+    event.preventDefault();
+  }
+});
+      </script>
+      <script>
+        document.getElementById('toggle-password').addEventListener('click', function (event) {
+          event.preventDefault();
+          const passwordInput = document.querySelector('input[name="CLAVE"]');
+          const toggleButton = event.target.tagName === 'I' ? event.target.parentElement : event.target;
+          const icon = toggleButton.querySelector('.fa');
+
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+            setTimeout(() => {
+              passwordInput.type = 'password';
+              icon.classList.remove('fa-eye-slash');
+              icon.classList.add('fa-eye');
+            }, 3000);
+          }
+        });
+      </script>
+  </body>
 
 </html>

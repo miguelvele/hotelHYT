@@ -6,7 +6,7 @@ import excel from "exceljs"
 import PDFDocument from "pdfkit"
 import axios from "axios";
 import moment from 'moment-timezone';
-
+import bodyParser from 'body-parser';
 import fs from "fs"
 
 const usuario = async (req, res) => {
@@ -164,23 +164,21 @@ const edituser = async (req, res) => {
 const guardar = async (req, res) => {
 
     let data = {
-        id: req.query.id,
-        codigo_usuario: req.query.codigo_usuario,
-        codigo_tipo_usuario: req.query.codigo_tipo_usuario,
-        tipo_documento: req.query.tipo_documento,
-        documento: req.query.documento,
-        nombre: req.query.nombre,
-        apellido: req.query.apellido,
-        correo: req.query.correo,
-        clave: req.query.clave,
-        estado: req.query.estado,
-        fecha_creacion: req.query.fecha_creacion,
+        id: req.body.id,
+        codigo_usuario: req.body.codigo_usuario,
+        codigo_tipo_usuario: req.body.codigo_tipo_usuario,
+        tipo_documento: req.body.tipo_documento,
+        documento: req.body.documento,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        correo: req.body.correo,
+        clave: req.body.clave,
+        estado: req.body.estado,
+        fecha_creacion: req.body.fecha_creacion,
     }
     let metodo = "put";
 
-
-
-    let ruta = process.env.API + 'usuarios';
+    let ruta = process.env.API + 'usuarios/'+ req.body.id;
 
     let option = {
         method: metodo,
@@ -191,17 +189,24 @@ const guardar = async (req, res) => {
     }
     try {
         const result = await fetch(ruta, option)
-            .then(res => res.json())
+            .then(async res => {
+                const responseBody = await res.text();
+                console.log('Respuesta completa:', responseBody);
+                // Convertir a JSON solo si la respuesta es exitosa
+                if (res.ok) {
+                    return JSON.parse(responseBody);
+                } else {
+                    throw new Error(`Error al consumir API: ${res.status} ${res.statusText}`);
+                }
+            })
             .then(data => {
                 console.log("Datos guardados");
             })
-            .catch(err => console.log("erro al consumir api " + err))
+            .catch(err => console.log("erro al consumir api " + err));
         res.redirect("/v1/usuario");
     } catch (error) {
-
+    
     }
-
-
 }
 
 const generarpdf = async (req, res) => {

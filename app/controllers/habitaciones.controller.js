@@ -40,6 +40,8 @@ const habitaciones = async (req, res) => {
 };
 
 
+
+
 const guardarh = async (req, res) => {
     const nuevaHabitacion = {
 
