@@ -19,6 +19,7 @@ const router = Router();
 
 router.get('/habitaciones', requireAuth, requireAdmin, habitacionesController.habitaciones);
 router.post('/guardarh',habitacionesController.guardarh);
+router.post('/guardarhh', habitacionesController.guardarhh);
 router.get('/borrarh',habitacionesController.borrarh);
 router.get('/salir',habitacionesController.salir);
 router.get('/edithabi',habitacionesController.edithabi);

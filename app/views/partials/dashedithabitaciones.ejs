@@ -22,10 +22,10 @@
               </div>
             </div>
             <div class="box-body">
-              <form action="guardar" id="formulario" method="post">
+              <form action="guardarhh" id="formulario" method="post">
                 <div class="form-group">
                   <label>Número de habitación</label>
-                  <input type="text" class="form-control" value="<%= datos.numero_habitacion %>" name="numero_habitacion">
+                  <input type="text" class="form-control" value="<%= datos.id %>" name="id">
                 </div>
                 <div class="form-group">
                   <label>Código de piso</label>
@@ -40,10 +40,13 @@
                   <input type="text" class="form-control" value="<%= datos.codigo_hotel %>" name="codigo_hotel">
                 </div>
                 <div class="form-group">
-                  <label>Código de estado de habitación</label>
-                  <input type="text" class="form-control" value="<%= datos.codigo_estado_habitacion %>"
-                    name="codigo_estado_habitacion">
-                </div>
+                  <label>Estado de habitación</label>
+                  <select class="form-control" name="codigo_estado_habitacion">
+                      <option value="1" <% if (datos.codigo_estado_habitacion == 1) { %> selected <% } %>>Ocupada</option>
+                      <option value="2" <% if (datos.codigo_estado_habitacion == 2) { %> selected <% } %>>Disponible</option>
+                      <option value="3" <% if (datos.codigo_estado_habitacion == 3) { %> selected <% } %>>En limpieza</option>
+                  </select>
+              </div>
                 <div class="form-group">
                   <label>Detalle</label>
                   <input type="text" class="form-control" value="<%= datos.detalle %>" name="detalle">

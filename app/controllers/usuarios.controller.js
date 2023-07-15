@@ -178,7 +178,7 @@ const guardar = async (req, res) => {
     }
     let metodo = "put";
 
-    let ruta = process.env.API + 'usuarios/'+ req.body.id;
+    let ruta = process.env.API + 'usuarios/' + req.body.id;
 
     let option = {
         method: metodo,
@@ -205,7 +205,7 @@ const guardar = async (req, res) => {
             .catch(err => console.log("erro al consumir api " + err));
         res.redirect("/v1/usuario");
     } catch (error) {
-    
+
     }
 }
 

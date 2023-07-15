@@ -65,7 +65,7 @@
 
 
                   <td>
-                    <a href="edithabi?numero_habitacion=<%= elements.NUMERO_HABITACION %>&codigo_piso=<%= elements.CODIGO_PISO %>&codigo_categoria=<%= elements.CODIGO_CATEGORIA %>&codigo_hotel=<%= elements.CODIGO_HOTEL %>&codigo_estado_habitacion=<%= elements.CODIGO_ESTADO_HABITACION %>&detalle=<%= elements.DETALLE %>&precio=<%= elements.PRECIO %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">                      
+                    <a href="edithabi?id=<%= elements.NUMERO_HABITACION %>&codigo_piso=<%= elements.CODIGO_PISO %>&codigo_categoria=<%= elements.CODIGO_CATEGORIA %>&codigo_hotel=<%= elements.CODIGO_HOTEL %>&codigo_estado_habitacion=<%= elements.CODIGO_ESTADO_HABITACION %>&detalle=<%= elements.DETALLE %>&precio=<%= elements.PRECIO %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">                      
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
@@ -135,9 +135,14 @@
               <label>Estado Habitacion</label>
 
               <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="CODIGO_ESTADO_HABITACION" type="number" class="form-control"
-                  placeholder="Ingrese el estado de la habitacion">
+                <select name="CODIGO_ESTADO_HABITACION" class="form-control">
+                   <option value="2">Disponible</option>
+                  <option value="1">Ocupada</option>
+                 
+                  <option value="3">En limpieza</option>
+
+                </select>
+                
               </div>
               <div class="form-group">
                 <label>Detalle</label>
@@ -170,14 +175,11 @@
 
               <div class="form-group">
                 <label>Fecha de Creacion</label>
-
                 <div class="input-group">
-                  <span class="input-group-addon">@</span>
-                  <input name="FECHA_CREACION" type="text" class="form-control"
-                    placeholder="Ingrese la fecha de Creacion">
+                    <span class="input-group-addon">@</span>
+                    <input id="fechaCreacion" name="FECHA_CREACION" type="text" class="form-control" readonly>
                 </div>
-
-              </div>
+            </div>
 
 
               <div class="modal-footer">
@@ -199,117 +201,18 @@
 
 
 
-    <div class="modal fade" id="modal-default2">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form action="actualizar" method="put">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Ingrese el nuevo usuario para actualizar</h4>
-            </div>
-            <div class="modal-body">
-              <label>ID</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="ID" type="number" class="form-control" placeholder="Ingrese el id">
-              </div>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-
-                <label>Tipo de Usuario</label>
-                <select name="CODIGO_TIPO_USUARIO" class="form-control">
-                  <option value="2">USUARIO</option>
-                  <option value="1">ADMIN</option>
-                </select>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label>Tipo de Documento</label>
-                <select name="TIPO_DOCUMENTO" class="form-control">
-                  <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                  <option value="Pasaporte">Pasaporte</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="modal-body">
-              <label>Documento</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
-              </div>
-            </div>
-            <div class="modal-body">
-              <label>Nombre</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
-              </div>
-            </div>
-            <div class="modal-body">
-              <label>Apellido</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
-              </div>
-            </div>
-            <div class="modal-body">
-              <label>Correo</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
-              </div>
-            </div>
-            <div class="modal-body">
-              <label>Clave</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="CLAVE" type="text" class="form-control" placeholder="Ingrese una Clave">
-              </div>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label>Estado</label>
-                <select name="ESTADO" class="form-control">
-                  <option value="1">Activo</option>
-                </select>
-              </div>
-            </div>
-            <div class="modal-body">
-              <label>Fecha de Creacion</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="FECHA_CREACION" type="text" class="form-control">
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-success">Guardar</button>
-            </div>
-          </form>
-
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
+    
   </div>
   <!-- /.content-wrapper -->
 
 </div>
 
+<script>
+  let fecha = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
+  document.getElementById('fechaCreacion').value = fecha;
+  </script>
   <script>
+    
   function confirmar(NUMERO_HABITACION) {
     Swal.fire({
       title: '¿Estás seguro?',

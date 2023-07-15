@@ -8,35 +8,35 @@ import axios from "axios";
 import fs from "fs"
 
 const habitaciones = async (req, res) => {
-    
-
-        try {
-           
-
-            let ruta = process.env.API + 'habitacion';
-            let option = {
-                method: "GET",
-            }
-            let datos = {};
-            const result = await fetch(ruta, option)
-                .then(response => response.json())
-                .then(data => {
-                    datos = data[0]
-                    //console.log(data[0]);
-                })
-                .catch(err => console.error("error en peticion" + err))
 
 
+    try {
 
-            res.render("dash", {
-                "menu": 2,
-                "datos": datos,
-            });
 
-        } catch (error) {
-            res.redirect("/");
+        let ruta = process.env.API + 'habitacion';
+        let option = {
+            method: "GET",
         }
-    
+        let datos = {};
+        const result = await fetch(ruta, option)
+            .then(response => response.json())
+            .then(data => {
+                datos = data[0]
+                //console.log(data[0]);
+            })
+            .catch(err => console.error("error en peticion" + err))
+
+
+
+        res.render("dash", {
+            "menu": 2,
+            "datos": datos,
+        });
+
+    } catch (error) {
+        res.redirect("/");
+    }
+
 };
 
 
@@ -95,34 +95,34 @@ const borrarh = async (req, res) => {
 
 };
 const edithabi = async (req, res) => {
-    const numero_habitacion = req.query.numero_habitacion;
-const codigo_piso = req.query.codigo_piso;
-const codigo_categoria = req.query.codigo_categoria;
-const codigo_hotel = req.query.codigo_hotel;
-const codigo_estado_habitacion = req.query.codigo_estado_habitacion;
-const detalle = req.query.detalle;
-const precio = req.query.precio;
-const estado = req.query.estado;
-const fecha_creacion = req.query.fecha_creacion;
+    const id = req.query.id;
+    const codigo_piso = req.query.codigo_piso;
+    const codigo_categoria = req.query.codigo_categoria;
+    const codigo_hotel = req.query.codigo_hotel;
+    const codigo_estado_habitacion = req.query.codigo_estado_habitacion;
+    const detalle = req.query.detalle;
+    const precio = req.query.precio;
+    const estado = req.query.estado;
+    const fecha_creacion = req.query.fecha_creacion;
 
-let datos = {
-    numero_habitacion: numero_habitacion,
-    codigo_piso: codigo_piso,
-    codigo_categoria: codigo_categoria,
-    codigo_hotel: codigo_hotel,
-    codigo_estado_habitacion: codigo_estado_habitacion,
-    detalle: detalle,
-    precio: precio,
-    estado: estado,
-    fecha_creacion: fecha_creacion
-}
+    let datos = {
+        id: id,
+        codigo_piso: codigo_piso,
+        codigo_categoria: codigo_categoria,
+        codigo_hotel: codigo_hotel,
+        codigo_estado_habitacion: codigo_estado_habitacion,
+        detalle: detalle,
+        precio: precio,
+        estado: estado,
+        fecha_creacion: fecha_creacion
+    }
 
 
     try {
-       
+
         res.render("dash", {
-            
-           
+
+
             "menu": 5,
             "datos": datos
         });
@@ -133,6 +133,52 @@ let datos = {
 
 }
 
+const guardarhh = async (req, res) => {
+
+    let data = {
+        id: req.body.id,
+        codigo_piso: req.body.codigo_piso,
+        codigo_categoria: req.body.codigo_categoria,
+        codigo_hotel: req.body.codigo_hotel,
+        codigo_estado_habitacion: req.body.codigo_estado_habitacion,
+        detalle: req.body.detalle,
+        precio: req.body.precio,
+        estado: req.body.estado,
+        fecha_creacion: req.body.fecha_creacion
+    }
+    let metodo = "put";
+
+    let ruta = process.env.API + 'habitacion/' + req.body.id;
+
+    let option = {
+        method: metodo,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
+    try {
+        const result = await fetch(ruta, option)
+            .then(async res => {
+                const responseBody = await res.text();
+                console.log('Respuesta completa:', responseBody);
+                // Convertir a JSON solo si la respuesta es exitosa
+                if (res.ok) {
+                    return JSON.parse(responseBody);
+                } else {
+                    throw new Error(`Error al consumir API: ${res.status} ${res.statusText}`);
+                }
+            })
+            .then(data => {
+                console.log("Datos guardados");
+            })
+            .catch(err => console.log("erro al consumir api " + err));
+        res.redirect("/v1/habitaciones");
+    } catch (error) {
+
+    }
+}
+
 
 const salir = async (req, res) => {
     res.clearCookie("ckmp");
@@ -140,5 +186,5 @@ const salir = async (req, res) => {
 };
 
 export const habitacionesController = {
-    habitaciones, guardarh, borrarh, salir, edithabi
+    habitaciones, guardarh, borrarh, salir, edithabi, guardarhh
 }
