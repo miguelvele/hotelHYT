@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Usuarios
+        Estados de las habitaciones
        
       </h1>
      
@@ -18,7 +18,7 @@
       <div class="box">
         <div class="box-header with-border">
           <a type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default1">
-            Añadir usuario
+            Añadir estado
           </a>
           
 
@@ -35,32 +35,34 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>DOCUMENTO</th>
-                <th>NOMBRE</th>
-                <th>APELLIDO</th>
-                <th>CORREO</th>
+                <th>DESCRIPCION</th>
+                <th>ESTADO</th>
+                <th>FECHA DE CREACION</th>
+                
                 
               </tr>
             </thead>
             <tbody>
               <% datos.forEach((elements)=>{ %>
                 <tr>
-                  <td><%= elements.CODIGO_USUARIO %></td>
-                  <td><%= elements.DOCUMENTO %></td>
-                  <td><%= elements.NOMBRE %></td>
-                  <td><%= elements.APELLIDO %></td>
-                  <td><%= elements.CORREO %></td>
+                  <td><%= elements.CODIGO_ESTADO_HABITACION %></td>
+                  <td><%= elements.DESCRIPCION %></td>
+                  <td><%= elements.ESTADO %></td>
+                  <td>
+                    <% const fechaCreacion=new Date(elements.FECHA_CREACION); %>
+                    <%= fechaCreacion.toISOString().split('T')[0] %></td>
+                  
                   
                   
                   <td>
 
-                    <a href="edituser?id=<%= elements.CODIGO_USUARIO %>&codigo_tipo_usuario=<%= elements.CODIGO_TIPO_USUARIO %>&documento=<%= elements.DOCUMENTO %>&tipo_documento=<%= elements.TIPO_DOCUMENTO %>&nombre=<%= elements.NOMBRE %>&apellido=<%= elements.APELLIDO %>&correo=<%= elements.CORREO %>&clave=<%= elements.CLAVE %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">
+                    <a href="editestado?id=<%= elements.CODIGO_ESTADO_HABITACION %>&descripcion=<%= elements.DESCRIPCION %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a  data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
                       <i class="fa fa-edit"></i>
                     </a> -->
-                    <a  class="btn btn-danger" onclick="confirmar(`<%= elements.CODIGO_USUARIO %>`)">
+                    <a  class="btn btn-danger" onclick="confirmar(`<%= elements.CODIGO_ESTADO_HABITACION %>`)">
                       <!-- href="borrar?id=<%= elements.ID %>" --> 
                         <i class="fa fa-trash"></i>
                       </a>
@@ -69,15 +71,7 @@
               <% }) %>
             </tbody>
           </table>
-          <form action="generarpdf" method="POST">
-            <input type="hidden" name="datos">
-            <label for="formato">Formato:</label>
-            <select name="formato" id="formato">
-              <option value="pdf">PDF</option>
-              <option value="excel">Excel</option>
-            </select>
-            <button type="submit">Generar</button>
-          </form>
+         
           
         </div>
 
@@ -89,72 +83,24 @@
     <div class="modal fade" id="modal-default1">
       <div class="modal-dialog">
         <div class="modal-content">
-          <form action="guardaru" method="post">
+          <form action="guardarestado" method="post">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Ingrese el nuevo usuario</h4>
+            <h4 class="modal-title">Ingrese el nuevo estado</h4>
           </div>
           
-          <div class="modal-body">
-            <div class="form-group">
-            <label>Tipo de Usuario</label>
-            <select name="CODIGO_TIPO_USUARIO" class="form-control">
-              <option  value="2">USUARIO</option>
-                <option value="1">ADMIN</option>
-            </select>
-          </div>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-            <label>Tipo de Documento</label>
-            <select name="TIPO_DOCUMENTO" class="form-control">
-              <option  value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                <option value="Pasaporte">Pasaporte</option>
-            </select>
-          </div>
-          </div>
+          
           
           <div class="modal-body">
-            <label>Documento</label>
+            <label>Descripcion</label>
 
             <div class="form-group">
-              
-              <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
+             
+              <input name="DESCRIPCION" type="text" class="form-control" placeholder="Ingrese la descripcion">
             </div>
           </div>
-          <div class="modal-body">
-            <label>Nombre</label>
-
-            <div class="form-group">
-              
-              <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Apellido</label>
-
-            <div class="form-group">
-              
-              <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Correo</label>
-
-            <div class="form-group">
-              
-              <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Clave</label>
-
-            <div class="form-group">
-              
-              <input name="CLAVE" type="text" class="form-control" placeholder="Ingrese una Clave">
-            </div>
-          </div>
+          
             <div class="modal-body">
               <div class="form-group">
               <label>Estado</label>
@@ -167,7 +113,7 @@
            <div class="form-group">
           <label>Fecha de Creacion</label>
           <div class="form-group">
-              
+             
               <input id="fechaCreacion" name="FECHA_CREACION" type="text" class="form-control" readonly>
           </div>
       </div>
@@ -201,10 +147,10 @@
   document.getElementById('fechaCreacion').value = fecha;
   </script>
 <script>
-  function confirmar(CODIGO_USUARIO) {
+  function confirmar(CODIGO_ESTADO_HABITACION) {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: '¿Quieres borrar realmente esto? ' + CODIGO_USUARIO,
+      text: '¿Quieres borrar realmente esto? ' + CODIGO_ESTADO_HABITACION,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -220,7 +166,7 @@
         });
 
         setTimeout(function() {
-          window.location.href = `borrar?id=${CODIGO_USUARIO}`;
+          window.location.href = `borrarestado?id=${CODIGO_ESTADO_HABITACION}`;
           Swal.fire({
             title: '¡Borrado exitoso!',
             text: 'Tu registro ha sido borrado correctamente.',
@@ -229,7 +175,7 @@
             showConfirmButton: false
           }).then(() => {
             // Redirecciona a la página de reservaciones
-            window.location.href = '/v1/usuario';
+            window.location.href = '/v1/estadosh';
           });
         }, 2000);
       }
@@ -251,7 +197,7 @@
       showConfirmButton: false
     }).then(() => {
       // Redirecciona a la página de reservaciones
-      window.location.href = '/v1/usuario';
+      window.location.href = '/v1/estadosh';
     });
   } else if (success === 'false') {
     Swal.fire({
@@ -262,7 +208,7 @@
       showConfirmButton: false
     }).then(() => {
       // Redirecciona a la página de reservaciones
-      window.location.href = '/v1/usuario';
+      window.location.href = '/v1/estadosh';
     });
   }
 </script>

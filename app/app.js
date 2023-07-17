@@ -10,6 +10,11 @@ import * as url from 'url';
 import route from "./routes/home.routes.js"
 import inicio from './routes/dashboard.routes.js';
 import usuario from './routes/usuarios.routes.js';
+import categoria from './routes/categorias.routes.js';
+import metodopago from './routes/metodopago.routes.js';
+import pisos from './routes/piso.routes.js';
+import estadosh from './routes/estadohabitacion.routes.js';
+import tiposu from './routes/tiposu.routes.js';
 import habitaciones from './routes/habitaciones.routes.js';
 import precio from './routes/precio.routes.js';
 import reservaciones from './routes/reservaciones.routes.js';
@@ -37,19 +42,18 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(cookieParser());
 
-// TODAS LAS RUTAS Y PERMISOS DE GOOGLE
-// app.use("/auth", passport.authenticate("auth-google", {
-//     scope: [
-//         "https://www.googleapis.com/auth/userinfo.email",
-//         "https://www.googleapis.com/auth/userinfo.profile"
-//     ],
-//     session: false
-// }), loginRouter);
+//routes
 app.use("/", registro);
 app.use("/", routerLogin);
 app.use("/", route);
 app.use("/", precio);
 app.use("/v1", inicio);
+app.use("/v1", categoria);
+app.use("/v1", metodopago);
+app.use("/v1", pisos);
+app.use("/v1", estadosh);
+app.use("/v1", tiposu);
+
 app.use("/v1", usuario);
 app.use("/v1", habitaciones);
 app.use("/v1", reservaciones);

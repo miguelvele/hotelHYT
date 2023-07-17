@@ -22,6 +22,8 @@ router.post('/guardarh',habitacionesController.guardarh);
 router.post('/guardarhh', habitacionesController.guardarhh);
 router.get('/borrarh',habitacionesController.borrarh);
 router.get('/salir',habitacionesController.salir);
+router.post('/generarpdfhabi', habitacionesController.generarpdfhabi);
+
 router.get('/edithabi',habitacionesController.edithabi);
 
 

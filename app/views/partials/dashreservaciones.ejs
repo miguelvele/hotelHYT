@@ -5,7 +5,7 @@
       <h1>
         Reservaciones
       </h1>
-    
+
     </section>
 
     <!-- Main content -->
@@ -45,7 +45,7 @@
               </tr>
             </thead>
             <tbody>
-              <% datos.forEach((elements)=>{ %>
+              <% datosReservas.forEach((elements)=>{ %>
                 <tr>
                   <td>
                     <%= elements.CODIGO_USUARIO %>
@@ -87,7 +87,8 @@
 
 
                   <td>
-                    <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
+                    <a href="editreserva?id=<%= elements.CODIGO_RESERVA %>&codigo_usuario=<%= elements.CODIGO_USUARIO %>&codigo_metodo_pago=<%= elements.CODIGO_METODO_PAGO %>&fecha_entrada=<%= elements.FECHA_ENTRADA %>&fecha_salida=<%= elements.FECHA_SALIDA %>&precio_inicial=<%= elements.PRECIO_INICIAL %>&adelanto=<%= elements.ADELANTO %>&precio_restante=<%= elements.PRECIO_RESTANTE %>&total_pagado=<%= elements.TOTAL_PAGADO %>&costo_penalidad=<%= elements.COSTO_PENALIDAD %>&observaciones=<%= elements.OBSERVACIONES %>&estado=<%= elements.ESTADO %>"
+                      class="btn btn-success">
                       <i class="fa fa-edit"></i>
                     </a>
                     <button class="btn btn-danger" onclick="confirmar(`<%= elements.CODIGO_RESERVA %>`)">
@@ -98,7 +99,7 @@
                 <% }) %>
             </tbody>
           </table>
-          <form action="generarpdf" method="POST">
+          <form action="generarpdfreser" method="POST">
             <input type="hidden" name="datos">
             <label for="formato">Formato:</label>
             <select name="formato" id="formato">
@@ -127,16 +128,16 @@
             <div class="modal-body">
 
 
-
-              <label>Codigo del usuario</label>
-
-              <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input name="CODIGO_USUARIO" type="number" class="form-control"
-                  placeholder="Ingrese el codigo del usuario">
+              <div class="form-group">
+                <label>Cliente</label>
+                <select id="codigoUsuario" name="CODIGO_USUARIO" class="form-control">
+                  <% datosUsuarios.forEach(function(usuario) { %>
+                    <option value="<%= usuario.CODIGO_USUARIO %>">
+                      <%= usuario.NOMBRE + ' ' + usuario.APELLIDO %>
+                    </option>
+                    <% }); %>
+                </select>
               </div>
-
-
               <div class="form-group">
                 <label>Metodo de pago</label>
                 <select name="CODIGO_METODO_PAGO" class="form-control">
@@ -146,22 +147,18 @@
               </div>
               <div class="form-group">
                 <label>Fecha de entrada</label>
-
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input name="FECHA_ENTRADA" type="text" class="form-control"
+                  <input name="FECHA_ENTRADA" type="date" class="form-control"
                     placeholder="Ingrese la fecha de entrada">
                 </div>
-
               </div>
               <div class="form-group">
                 <label>Fecha de salida</label>
-
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input name="FECHA_SALIDA" type="text" class="form-control" placeholder="Ingrese la fecha de salida">
+                  <input name="FECHA_SALIDA" type="date" class="form-control" placeholder="Ingrese la fecha de salida">
                 </div>
-
               </div>
               <div class="form-group">
                 <label>Precio inicial</label>
@@ -216,8 +213,7 @@
 
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input name="OBSERVACIONES" type="text" class="form-control"
-                    placeholder="Ingrese alguna observacion">
+                  <input name="OBSERVACIONES" type="text" class="form-control" placeholder="Ingrese alguna observacion">
                 </div>
 
               </div>
@@ -254,115 +250,26 @@
 
 
 
-  <div class="modal fade" id="modal-default2">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form action="actualizar" method="put">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Ingrese el nuevo usuario para actualizar</h4>
-          </div>
-          <div class="modal-body">
-            <label>ID</label>
 
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="ID" type="number" class="form-control" placeholder="Ingrese el id">
-            </div>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
 
-              <label>Tipo de Usuario</label>
-              <select name="CODIGO_TIPO_USUARIO" class="form-control">
-                <option value="2">USUARIO</option>
-                <option value="1">ADMIN</option>
-              </select>
-            </div>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>Tipo de Documento</label>
-              <select name="TIPO_DOCUMENTO" class="form-control">
-                <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                <option value="Pasaporte">Pasaporte</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="modal-body">
-            <label>Documento</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="DOCUMENTO" type="number" class="form-control" placeholder="Ingrese el Documento">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Nombre</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="NOMBRE" type="text" class="form-control" placeholder="Ingrese el Nombre">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Apellido</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="APELLIDO" type="text" class="form-control" placeholder="Ingrese el Apellido">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Correo</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="CORREO" type="text" class="form-control" placeholder="Ingrese el Correo">
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Clave</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="CLAVE" type="text" class="form-control" placeholder="Ingrese una Clave">
-            </div>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label>Estado</label>
-              <select name="ESTADO" class="form-control">
-                <option value="1">Activo</option>
-              </select>
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Fecha de Creacion</label>
-
-            <div class="input-group">
-              <span class="input-group-addon">@</span>
-              <input name="FECHA_CREACION" type="text" class="form-control">
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-success">Guardar</button>
-          </div>
-        </form>
-
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-</div>
-<!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
 
 </div>
+<script>
+  $(document).ready(function () {
+    $('#modal-default1').on('show.bs.modal', function (e) {
+      console.log("Modal abierto");  // añadir esta línea
+      $("#codigoUsuario").empty();
+
+      $.get("http://localhost:3000/api/usuarios", function (data) {
+        data.forEach(function (usuario) {
+          $("#codigoUsuario").append(new Option(usuario.NOMBRE + ' ' + usuario.APELLIDO, usuario.CODIGO_USUARIO));
+        });
+      });
+    });
+  });
+</script>
 <script>
   function confirmar(CODIGO_RESERVA) {
     Swal.fire({
@@ -382,7 +289,7 @@
           showConfirmButton: false
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = `borrarr?id=${CODIGO_RESERVA}`;
           Swal.fire({
             title: '¡Borrado exitoso!',
@@ -429,4 +336,3 @@
     });
   }
 </script>
-

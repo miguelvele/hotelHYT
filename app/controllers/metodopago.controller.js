@@ -4,19 +4,18 @@ import dotenv from "dotenv";
 import fetch from "node-fetch";
 import excel from "exceljs"
 import PDFDocument from "pdfkit"
+import axios from "axios";
 import moment from 'moment-timezone';
 import bodyParser from 'body-parser';
-
-import axios from "axios";
 import fs from "fs"
 
-const habitaciones = async (req, res) => {
+const metodopago = async (req, res) => {
 
 
     try {
+        // process.env.API + 'pro' + `/${id}`;
 
-
-        let ruta = process.env.API + 'habitacion';
+        let ruta = process.env.API + 'metodopago';
         let option = {
             method: "GET",
         }
@@ -32,7 +31,7 @@ const habitaciones = async (req, res) => {
 
 
         res.render("dash", {
-            "menu": 2,
+            "menu": 8,
             "datos": datos,
         });
 
@@ -42,27 +41,18 @@ const habitaciones = async (req, res) => {
 
 };
 
-
-
-
-const guardarh = async (req, res) => {
-    const nuevaHabitacion = {
-
-        codigo_piso: req.body.CODIGO_PISO,
-        codigo_categoria: req.body.CODIGO_CATEGORIA,
-        codigo_hotel: req.body.CODIGO_HOTEL,
-        codigo_estado_habitacion: req.body.CODIGO_ESTADO_HABITACION,
-        detalle: req.body.DETALLE,
-        precio: req.body.PRECIO,
+const guardarmetodopago = async (req, res) => {
+    const nuevoUsuario = {
+        
+        nombre: req.body.NOMBRE,
         estado: req.body.ESTADO,
-        fecha_creacion: req.body.FECHA_CREACION
     };
 
-    axios.post(process.env.API + 'habitacion', nuevaHabitacion)
+    axios.post(process.env.API + 'metodopago', nuevoUsuario)
         .then(response => {
             console.log(response.data);
             // Aquí puedes realizar alguna acción adicional o mostrar un mensaje de éxito.
-            res.redirect("/v1/habitaciones");
+            res.redirect("/v1/metodopago");
         })
         .catch(error => {
             console.error(error);
@@ -70,14 +60,16 @@ const guardarh = async (req, res) => {
             res.redirect('/error'); // Redirige a una página de error o a donde desees.
         });
 };
-const borrarh = async (req, res) => {
+
+
+const borrarmetodo = async (req, res) => {
     const id = req.query.id;
 
 
     try {
 
 
-        const url = process.env.API + 'habitacion' + `/${id}`;
+        const url = process.env.API + 'metodopago' + `/${id}`;
         const option = {
             method: "DELETE"
         };
@@ -85,39 +77,53 @@ const borrarh = async (req, res) => {
             .then((response) => response.json())
             .then((data) => {
                 if (data[0].affectedRows == 1) {
-                    res.redirect(`/v1/habitaciones?success=true&id=${id}`);
+                    res.redirect(`/v1/metodopago?success=true&id=${id}`);
                 } else {
                     console.log("No se pudo borrar mi bro");
-                    res.redirect(`/v1/habitaciones?success=false&id=${id}`);
+                    res.redirect(`/v1/metodopago?success=false&id=${id}`);
                 }
             });
     } catch (error) {
         console.error("Error con el token", error);
-        res.redirect(`/v1/habitaciones?success=false&id=${id}`);
+        res.redirect(`/v1/metodopago?success=false&id=${id}`);
     }
 
 };
-const edithabi = async (req, res) => {
+
+const salir = async (req, res) => {
+    res.clearCookie("ckmp");
+    res.redirect("/");
+};
+
+
+const actualizar = async (req, res) => {
+    const formData = req.body;
+    const apiUrl = 'http://localhost:3000/api/usuarios';
+
+    // Realizar una petición PUT a la API para actualizar los datos del usuario
+    axios.put(apiUrl, formData)
+        .then(response => {
+            console.log(response.data);
+            res.send('Datos actualizados correctamente');
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).send('Error al actualizar los datos');
+        });
+};
+const editmetodo = async (req, res) => {
     const id = req.query.id;
-    const codigo_piso = req.query.codigo_piso;
-    const codigo_categoria = req.query.codigo_categoria;
-    const codigo_hotel = req.query.codigo_hotel;
-    const codigo_estado_habitacion = req.query.codigo_estado_habitacion;
-    const detalle = req.query.detalle;
-    const precio = req.query.precio;
+  ;
+    const nombre = req.query.nombre;
     const estado = req.query.estado;
-    const fecha_creacion = req.query.fecha_creacion;
+   
 
     let datos = {
         id: id,
-        codigo_piso: codigo_piso,
-        codigo_categoria: codigo_categoria,
-        codigo_hotel: codigo_hotel,
-        codigo_estado_habitacion: codigo_estado_habitacion,
-        detalle: detalle,
-        precio: precio,
+        nombre: nombre,
         estado: estado,
-        fecha_creacion: fecha_creacion
+
+
     }
 
 
@@ -126,7 +132,7 @@ const edithabi = async (req, res) => {
         res.render("dash", {
 
 
-            "menu": 5,
+            "menu": 13,
             "datos": datos
         });
 
@@ -135,23 +141,16 @@ const edithabi = async (req, res) => {
     }
 
 }
-
-const guardarhh = async (req, res) => {
+const guardarmetodo = async (req, res) => {
 
     let data = {
-        id: req.body.id,
-        codigo_piso: req.body.codigo_piso,
-        codigo_categoria: req.body.codigo_categoria,
-        codigo_hotel: req.body.codigo_hotel,
-        codigo_estado_habitacion: req.body.codigo_estado_habitacion,
-        detalle: req.body.detalle,
-        precio: req.body.precio,
-        estado: req.body.estado,
-        fecha_creacion: req.body.fecha_creacion
+         id:req.body.id,
+         nombre:req.body.nombre,
+         estado:req.body.estado,
     }
     let metodo = "put";
 
-    let ruta = process.env.API + 'habitacion/' + req.body.id;
+    let ruta = process.env.API + 'metodopago/' + req.body.id;
 
     let option = {
         method: metodo,
@@ -176,34 +175,24 @@ const guardarhh = async (req, res) => {
                 console.log("Datos guardados");
             })
             .catch(err => console.log("erro al consumir api " + err));
-        res.redirect("/v1/habitaciones");
+        res.redirect("/v1/metodopago");
     } catch (error) {
 
     }
 }
 
-
-const salir = async (req, res) => {
-    res.clearCookie("ckmp");
-    res.redirect("/");
-};
-
-
-const generarpdfhabi = async (req, res) => {
+const generarpdfmetodo = async (req, res) => {
     try {
         const formato = req.body.formato; // Obtener el parámetro "formato" de la solicitud POST
 
         // Hacer una solicitud GET a la API para obtener la información
-        const response = await axios.get(process.env.API + 'habitacion');
+        const response = await axios.get(process.env.API + 'metodopago');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
 
         // Mostrar información por consola
-        console.log('Información del las habitaciones:');
+        console.log('Información del los metodos de pago:');
 
-        userData.forEach((usuarios) => {
-            console.log(`Nombre: ${usuarios.NUMERO_HABITACION}`);
-            
-        });
+        
 
         if (formato === 'pdf') {
             // Crear un nuevo documento PDF
@@ -211,11 +200,11 @@ const generarpdfhabi = async (req, res) => {
 
             // Stream el contenido PDF a la respuesta HTTP
             res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename=habitaciones.pdf');
+            res.setHeader('Content-Disposition', 'attachment; filename=metodosPago.pdf');
             doc.pipe(res);
 
             // Agregar contenido al PDF
-            doc.fontSize(20).text('Información de las Habitaciones', { align: 'center' });
+            doc.fontSize(20).text('Información de los metodos de pago', { align: 'center' });
             doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
             // Agregar la fecha y hora exacta de generación del reporte
             doc.fontSize(12);
@@ -231,7 +220,7 @@ const generarpdfhabi = async (req, res) => {
             let y = doc.y + 20;
 
             // Definir la tabla y sus columnas
-            const headers = ['Numero ', 'Precio','Detalle' ];
+            const headers = ['ID',  'Nombre', 'Estado'];
 
             // Dibujar la tabla
             doc.fontSize(12);
@@ -244,10 +233,10 @@ const generarpdfhabi = async (req, res) => {
             doc.font('Helvetica');
             y += 25;
             userData.forEach(user => {
-                doc.text(user.NUMERO_HABITACION, 10, y);
-                doc.text(user.PRECIO, 110, y);
-                doc.text(user.DETALLE, 190, y);
-                
+                doc.text(user.CODIGO_METODO_PAGO, 10, y);
+                doc.text(user.NOMBRE, 110, y);
+                doc.text(user.ESTADO, 210, y);
+              
                 y += 25;
             });
             // Finalizar el PDF
@@ -259,21 +248,21 @@ const generarpdfhabi = async (req, res) => {
 
             // Agregar encabezados de columna
             worksheet.columns = [
-                { header: 'Precio', key: 'precio', width: 20 },
-                { header: 'ID', key: 'numero_habitacion', width: 10 },
+                { header: 'Nombre', key: 'nombre', width: 20 },
+                { header: 'ID', key: 'codigo_usuario', width: 10 },
             ];
 
             // Agregar filas con datos
             userData.forEach((usuarios) => {
                 worksheet.addRow({
-                    precio: usuarios.PRECIO,
-                    numero_habitacion: usuarios.NUMERO_HABITACION
+                    nombre: usuarios.NOMBRE,
+                    codigo_usuario: usuarios.CODIGO_USUARIO
                 });
             });
 
             // Stream el contenido Excel a la respuesta HTTP
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            res.setHeader('Content-Disposition', 'attachment; filename=habitaciones.xlsx');
+            res.setHeader('Content-Disposition', 'attachment; filename=user.xlsx');
             await workbook.xlsx.write(res);
 
             // Finalizar la escritura del libro de Excel
@@ -288,6 +277,7 @@ const generarpdfhabi = async (req, res) => {
     }
 };
 
-export const habitacionesController = {
-    habitaciones, guardarh, borrarh, salir, edithabi, guardarhh, generarpdfhabi
-}
+
+export const metodoController = {
+    metodopago, guardarmetodopago, borrarmetodo, salir, actualizar, generarpdfmetodo, editmetodo, guardarmetodo
+};

@@ -2,7 +2,7 @@
 
     <section class="content-header">
         <h1>
-            Modificar usuarios
+            Modificar estados de las habitaciones
 
         </h1>
         
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <form action="guardar" id="formulario" method="post">
+                <form action="guardarestados" id="formulario" method="post">
 
                     <div class="form-group">
                         <label>ID</label>
@@ -31,43 +31,20 @@
                     </div>
                     
                     
-                    <label>Tipo de usuario</label>
-                        <input type="text" class="form-control"  value="<%= datos.codigo_tipo_usuario %>" name="codigo_tipo_usuario">
-                    
-                    <div class="form-group">
-                        <label>Tipo de Documento</label>
-                        <input type="text" class="form-control"  value="<%= datos.tipo_documento %>" name="tipo_documento">
-                    </div>
-                    <div class="form-group">
-                        <label>Documento</label>
-                        <input type="text" class="form-control"  value="<%= datos.documento %>" name="documento">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control"  value="<%= datos.nombre %>" name="nombre">
-                    </div>
-                    <div class="form-group">
-                        <label>Apellido</label>
-                        <input type="text" class="form-control"  value="<%= datos.apellido %>" name="apellido">
-                    </div>
-                    <div class="form-group">
-                        <label>Correo</label>
-                        <input type="text" class="form-control"  value="<%= datos.correo %>" name="correo">
-                    </div>
-                    <div class="form-group">
-                        <label>Clave</label>
-                        <input type="text" class="form-control"  value="<%= datos.clave %>" name="clave">
-                    </div>
+                    <label>Descripcion</label>
+                        <input type="text" class="form-control"  value="<%= datos.descripcion %>" name="descripcion">
+                  
                     <div class="form-group">
                         <label>Estado</label>
                         <input type="text" class="form-control"  value="<%= datos.estado %>" name="estado">
-                    
                     </div>
                     <div class="form-group">
                         <label>Fecha de creacion</label>
-                        <input type="text" class="form-control" value="<% const fechaCreacion=new Date(datos.fecha_creacion); %>
-                        <%= fechaCreacion.toISOString().split('T')[0] %>" name="fecha_creacion">
+                        <input type="text" class="form-control" value="<% const fechaSalida=new Date(datos.fecha_creacion); %>
+                        <%= fechaSalida.toISOString().split('T')[0] %>" name="fecha_creacion">
                     </div>
+                   
+                   
                     <div class="box-footer">
                         <div class="input-group">
                             <button class="btn btn-app" type="submit" onclick="confirmar()">
@@ -101,7 +78,7 @@
             event.preventDefault();
             Swal.fire({
                 title: 'guardar cambios?',
-                text: "modificaras este usuario!",
+                text: "modificaras este estado!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

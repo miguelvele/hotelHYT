@@ -79,7 +79,7 @@
                 <% }) %>
             </tbody>
           </table>
-          <form action="generarpdf" method="POST">
+          <form action="generarpdfhabi" method="POST">
             <input type="hidden" name="datos">
             <label for="formato">Formato:</label>
             <select name="formato" id="formato">
@@ -134,7 +134,7 @@
               </div>
               <label>Estado Habitacion</label>
 
-              <div class="input-group">
+              <div class="form-group">
                 <select name="CODIGO_ESTADO_HABITACION" class="form-control">
                    <option value="2">Disponible</option>
                   <option value="1">Ocupada</option>
@@ -147,8 +147,8 @@
               <div class="form-group">
                 <label>Detalle</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="DETALLE" type="text" class="form-control"
                     placeholder="Ingrese el detalle de la habitacion">
                 </div>
@@ -161,8 +161,8 @@
 
                 <label>Precio</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="PRECIO" type="number" class="form-control" placeholder="Ingrese el precio">
                 </div>
               </div>
@@ -175,8 +175,8 @@
 
               <div class="form-group">
                 <label>Fecha de Creacion</label>
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
+                <div class="form-group">
+                    
                     <input id="fechaCreacion" name="FECHA_CREACION" type="text" class="form-control" readonly>
                 </div>
             </div>
