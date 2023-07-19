@@ -12,35 +12,40 @@ import fs from "fs"
 
 const habitaciones = async (req, res) => {
 
-
     try {
+        const habitacionRes = await fetch(process.env.API + 'habitacion');
+        const datos = await habitacionRes.json();
 
+        const pisoRes = await fetch(process.env.API + 'pisos');
+        const pisos = await pisoRes.json();
 
-        let ruta = process.env.API + 'habitacion';
-        let option = {
-            method: "GET",
-        }
-        let datos = {};
-        const result = await fetch(ruta, option)
-            .then(response => response.json())
-            .then(data => {
-                datos = data[0]
-                //console.log(data[0]);
-            })
-            .catch(err => console.error("error en peticion" + err))
+        const categoriaRes = await fetch(process.env.API + 'categoria');
+        const categorias = await categoriaRes.json();
+        
+        const estadoHabitacionRes = await fetch(process.env.API + 'estadohabitacion');
+        const estadosHabitacion = await estadoHabitacionRes.json();
 
-
-
+        const estadoHabitacionMap = {};
+        estadosHabitacion[0].forEach((estado) => {
+            estadoHabitacionMap[estado.CODIGO_ESTADO_HABITACION] = estado.DESCRIPCION;
+        });
+        const categoriaMap = {};
+        categorias[0].forEach((categoria) => {
+            categoriaMap[categoria.CODIGO_CATEGORIA] = categoria.NOMBRE;
+        });
         res.render("dash", {
             name: req.user.name,
             "menu": 2,
-            "datos": datos,
+            "datos": datos[0],
+            "pisos": pisos[0],
+            "categorias": categorias[0],
+            "estadosHabitacion": estadosHabitacion[0],
+            "estadoHabitacionMap": estadoHabitacionMap,
+            "categoriaMap": categoriaMap,
         });
-
     } catch (error) {
         res.redirect("/");
     }
-
 };
 
 
@@ -121,14 +126,27 @@ const edithabi = async (req, res) => {
         fecha_creacion: fecha_creacion
     }
 
-
     try {
+        const pisoRes = await fetch(process.env.API + 'pisos');
+        const pisos = await pisoRes.json();
+
+        const categoriaRes = await fetch(process.env.API + 'categoria');
+        const categorias = await categoriaRes.json();
+
+        const estadoHabitacionRes = await fetch(process.env.API + 'estadohabitacion');
+        const estadosHabitacion = await estadoHabitacionRes.json();
+
+        const hotelRes = await fetch(process.env.API + 'hotel');
+        const hoteles = await hotelRes.json();
 
         res.render("dash", {
-
             name: req.user.name,
             "menu": 5,
-            "datos": datos
+            "datos": datos,
+            "pisos": pisos[0],
+            "categorias": categorias[0],
+            "estadosHabitacion": estadosHabitacion[0],
+            "hoteles": hoteles[0]
         });
 
     } catch (error) {

@@ -32,9 +32,12 @@
             <thead>
               <tr>
                 <th>Numero de habitacion</th>
+                <th>Categoria</th>
                 <th>Estado de la habitacion</th>
                 <th>Detalle</th>
                 <th>Precio</th>
+                <th>Estado</th>
+                
 
               </tr>
             </thead>
@@ -44,16 +47,8 @@
                   <td>
                     <%= elements.NUMERO_HABITACION %>
                   </td>
-                  <td>
-                    <% if (elements.CODIGO_ESTADO_HABITACION === 1) { %>
-                      Ocupada
-                    <% } else if (elements.CODIGO_ESTADO_HABITACION === 2) { %>
-                      Disponible
-                    <% } else if (elements.CODIGO_ESTADO_HABITACION === 3) { %>
-                      En limpieza
-                    <% } else { %>
-                      Desconocido
-                    <% } %>
+                  <td><%= categoriaMap[elements.CODIGO_CATEGORIA] || 'Desconocida' %></td>
+                  <td><%= estadoHabitacionMap[elements.CODIGO_ESTADO_HABITACION] || 'Desconocido' %>
                   </td>
                   <td>
                     <%= elements.DETALLE %>
@@ -61,6 +56,7 @@
                   <td>
                     <%= elements.PRECIO %>
                   </td>
+                  <td><%= elements.ESTADO == 1 ? 'Activo' : 'Inactivo' %></td>
 
 
 
@@ -112,18 +108,20 @@
               <div class="form-group">
                 <label>Piso</label>
                 <select name="CODIGO_PISO" class="form-control">
-                  <option value="1">1</option>
+                    <% pisos.forEach((piso) => { %>
+                        <option value="<%= piso.CODIGO_PISO %>"><%= piso.DESCRIPCION %></option>
+                    <% }); %>
                 </select>
-              </div>
+            </div>
 
-
-              <div class="form-group">
-                <label>Categoria</label>
-                <select name="CODIGO_CATEGORIA" class="form-control">
-                  <option value="1">Cabaña</option>
-                  <option value="3">Cabaña Moderna</option>
-                </select>
-              </div>
+            <div class="form-group">
+              <label>Categoria</label>
+              <select name="CODIGO_CATEGORIA" class="form-control">
+                  <% categorias.forEach((categoria) => { %>
+                      <option value="<%= categoria.CODIGO_CATEGORIA %>"><%= categoria.NOMBRE %></option>
+                  <% }); %>
+              </select>
+          </div>
 
 
               <div class="form-group">
@@ -132,18 +130,14 @@
                   <option value="1">Glamping la polka</option>
                 </select>
               </div>
-              <label>Estado Habitacion</label>
-
               <div class="form-group">
+                <label>Estado Habitacion</label>
                 <select name="CODIGO_ESTADO_HABITACION" class="form-control">
-                   <option value="2">Disponible</option>
-                  <option value="1">Ocupada</option>
-                 
-                  <option value="3">En limpieza</option>
-
+                    <% estadosHabitacion.forEach((estado) => { %>
+                        <option value="<%= estado.CODIGO_ESTADO_HABITACION %>"><%= estado.DESCRIPCION %></option>
+                    <% }); %>
                 </select>
-                
-              </div>
+            </div>
               <div class="form-group">
                 <label>Detalle</label>
 
@@ -170,6 +164,8 @@
                 <label>Estado</label>
                 <select name="ESTADO" class="form-control">
                   <option value="1">Activo</option>
+                  <option value="2">Inactivo</option>
+
                 </select>
               </div>
 

@@ -5,7 +5,7 @@
             Modificar usuarios
 
         </h1>
-        
+
     </section>
     <section class="content">
 
@@ -27,48 +27,54 @@
                     <div class="form-group">
                         <label>ID</label>
                         <input type="text" class="form-control" readonly value="<%= datos.id %>" name="id">
-                   
+
                     </div>
-                    
-                    
+
+
                     <label>Tipo de Usuario</label>
                     <select name="codigo_tipo_usuario" class="form-control">
-                      <% tiposUsuario.forEach((tipo) => { %>
-                        <option value="<%= tipo.CODIGO_TIPO_USUARIO %>" <%= tipo.CODIGO_TIPO_USUARIO == datos.codigo_tipo_usuario ? 'selected' : '' %>><%= tipo.DESCRIPCION %></option>
-                      <% }); %>
+                        <% tiposUsuario.forEach((tipo)=> { %>
+                            <option value="<%= tipo.CODIGO_TIPO_USUARIO %>"
+                                <%=tipo.CODIGO_TIPO_USUARIO==datos.codigo_tipo_usuario ? 'selected' : '' %>><%=
+                                    tipo.DESCRIPCION %>
+                            </option>
+                            <% }); %>
                     </select>
                     <div class="form-group">
                         <label>Tipo de Documento</label>
-                        <input type="text" class="form-control"  value="<%= datos.tipo_documento %>" name="tipo_documento">
+                        <input type="text" class="form-control" value="<%= datos.tipo_documento %>"
+                            name="tipo_documento">
                     </div>
                     <div class="form-group">
                         <label>Documento</label>
-                        <input type="text" class="form-control"  value="<%= datos.documento %>" name="documento">
+                        <input type="text" class="form-control" value="<%= datos.documento %>" name="documento">
                     </div>
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input type="text" class="form-control"  value="<%= datos.nombre %>" name="nombre">
+                        <input type="text" class="form-control" value="<%= datos.nombre %>" name="nombre">
                     </div>
                     <div class="form-group">
                         <label>Apellido</label>
-                        <input type="text" class="form-control"  value="<%= datos.apellido %>" name="apellido">
+                        <input type="text" class="form-control" value="<%= datos.apellido %>" name="apellido">
                     </div>
                     <div class="form-group">
                         <label>Correo</label>
-                        <input type="text" class="form-control"  value="<%= datos.correo %>" name="correo">
+                        <input type="text" class="form-control" value="<%= datos.correo %>" name="correo">
                     </div>
                     <div class="form-group">
                         <label>Clave</label>
-                        <input type="text" class="form-control"  value="<%= datos.clave %>" name="clave">
+                        <input type="text" class="form-control" value="<%= datos.clave %>" name="clave">
                     </div>
                     <div class="form-group">
                         <label>Estado</label>
-                        <input type="text" class="form-control"  value="<%= datos.estado %>" name="estado">
-                    
+                        <select name="estado" id="" class="form-control">
+                            <option value="1" <%= datos.estado == 1 ? 'selected' : '' %>>Activo</option>
+                            <option value="2" <%= datos.estado == 2 ? 'selected' : '' %>>Inactivo</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Fecha de modificacion</label>
-                        
+
                         <input id="fechaCreacion" name="fecha_creacion" type="text" class="form-control" readonly>
 
                     </div>
@@ -100,12 +106,12 @@
 <script>
     let fecha = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
     document.getElementById('fechaCreacion').value = fecha;
-    </script>
+</script>
 <script>
     function confirmar() {
         const formu = document.querySelector("#formulario");
         formu.addEventListener("submit", (event) => {
-            
+
             event.preventDefault();
             Swal.fire({
                 title: 'guardar cambios?',

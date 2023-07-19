@@ -33,29 +33,28 @@
               <tr>
                 <th>codigo de usuario</th>
                 <th>metodo de pago</th>
+                <th>numero de habitacion</th>
+
                 <th>fecha de entrada</th>
                 <th>fecha de salida</th>
                 <th>precio inicial</th>
                 <th>adelanto</th>
                 <th>precio restante</th>
-                <th>total pagado</th>
                 <th>costo penalidad</th>
                 <th>observaciones</th>
+                <th>estado</th>
 
               </tr>
             </thead>
             <tbody>
               <% datosReservas.forEach((elements)=>{ %>
                 <tr>
-                  <td>
-                    <%= elements.CODIGO_USUARIO %>
+                  <td><%= datosUsuarios.find(u => u.CODIGO_USUARIO == elements.CODIGO_USUARIO).NOMBRE %>
+                  </td>
+                  <td><%= datosMetodosPago.find(m => m.CODIGO_METODO_PAGO == elements.CODIGO_METODO_PAGO).NOMBRE %>
                   </td>
                   <td>
-                    <% if (elements.CODIGO_METODO_PAGO===1) { %>
-                      efectivo
-                      <% } else if (elements.CODIGO_METODO_PAGO===2) { %>
-                        consignacion
-                        <% } %>
+                    <%= elements.NUMERO_HABITACION %>
                   </td>
                   <td>
                     <% const fechaEntrada=new Date(elements.FECHA_ENTRADA); %>
@@ -74,15 +73,14 @@
                   <td>
                     <%= elements.PRECIO_RESTANTE %>
                   </td>
-                  <td>
-                    <%= elements.TOTAL_PAGADO %>
-                  </td>
+                  
                   <td>
                     <%= elements.COSTO_PENALIDAD %>
                   </td>
                   <td>
                     <%= elements.OBSERVACIONES %>
                   </td>
+                  <td><%= elements.ESTADO == 1 ? 'Activo' : 'Inactivo' %></td>
 
 
 
@@ -141,30 +139,43 @@
               <div class="form-group">
                 <label>Metodo de pago</label>
                 <select name="CODIGO_METODO_PAGO" class="form-control">
-                  <option value="1">Efectivo</option>
-                  <option value="2">Consignacion</option>
+                    <% datosMetodosPago.forEach(function(metodoPago) { %>
+                        <option value="<%= metodoPago.CODIGO_METODO_PAGO %>">
+                            <%= metodoPago.NOMBRE %>
+                        </option>
+                    <% }); %>
                 </select>
-              </div>
+            </div>
+            <div class="form-group">
+              <label>Habitación</label>
+              <select name="NUMERO_HABITACION" class="form-control">
+                  <% datosHabitaciones.forEach(function(habitacion) { %>
+                      <option value="<%= habitacion.NUMERO_HABITACION %>">
+                          <%= habitacion.NUMERO_HABITACION %> <!-- Asume que quieres mostrar el número de la habitación -->
+                      </option>
+                  <% }); %>
+              </select>
+          </div>
               <div class="form-group">
                 <label>Fecha de entrada</label>
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="FECHA_ENTRADA" type="date" class="form-control"
                     placeholder="Ingrese la fecha de entrada">
                 </div>
               </div>
               <div class="form-group">
                 <label>Fecha de salida</label>
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="FECHA_SALIDA" type="date" class="form-control" placeholder="Ingrese la fecha de salida">
                 </div>
               </div>
               <div class="form-group">
                 <label>Precio inicial</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="PRECIO_INICIAL" type="number" class="form-control"
                     placeholder="Ingrese el precio inicial">
                 </div>
@@ -173,8 +184,8 @@
               <div class="form-group">
                 <label>Adelanto</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="ADELANTO" type="number" class="form-control" placeholder="Ingrese el adelanto">
                 </div>
 
@@ -182,8 +193,8 @@
               <div class="form-group">
                 <label>Precio restante</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="PRECIO_RESTANTE" type="number" class="form-control"
                     placeholder="Ingrese el precio restante">
                 </div>
@@ -192,8 +203,8 @@
               <div class="form-group">
                 <label>Total pagado</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="TOTAL_PAGADO" type="number" class="form-control" placeholder="Ingrese el total pagado">
                 </div>
 
@@ -201,8 +212,8 @@
               <div class="form-group">
                 <label>Costo de penalidad</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="COSTO_PENALIDAD" type="number" class="form-control"
                     placeholder="Ingrese el costo de la penalidad">
                 </div>
@@ -211,8 +222,8 @@
               <div class="form-group">
                 <label>Observaciones de la reserva</label>
 
-                <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                <div class="form-group">
+                  
                   <input name="OBSERVACIONES" type="text" class="form-control" placeholder="Ingrese alguna observacion">
                 </div>
 

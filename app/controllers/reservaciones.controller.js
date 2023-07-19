@@ -12,12 +12,14 @@ import fs from "fs"
 const reservaciones = async (req, res) => {
   try {
     let rutaReservas = process.env.API + 'reservas';
-    let rutaUsuarios = process.env.API + 'usuarios'; // Asume que esta es la ruta para obtener los usuarios
+    let rutaUsuarios = process.env.API + 'usuarios'; 
+    let rutaMetodosPago = process.env.API + 'metodopago'; // Asume que esta es la ruta para obtener los métodos de pago
     let option = {
       method: "GET",
     }
     let datosReservas = {};
     let datosUsuarios = {};
+    let datosMetodosPago = {};
 
     await fetch(rutaReservas, option)
       .then(response => response.json())
@@ -29,15 +31,35 @@ const reservaciones = async (req, res) => {
     await fetch(rutaUsuarios, option)
       .then(response => response.json())
       .then(data => {
-        datosUsuarios = data[0]  // Asume que los datos vienen como un array de objetos
+        datosUsuarios = data[0]
       })
       .catch(err => console.error("error en peticion" + err))
 
+    await fetch(rutaMetodosPago, option)
+      .then(response => response.json())
+      .then(data => {
+        datosMetodosPago = data[0]  // Asume que los datos vienen como un array de objetos
+      })
+      .catch(err => console.error("error en peticion" + err))
+
+      let rutaHabitaciones = process.env.API + 'habitacion'; // Asume que esta es la ruta para obtener las habitaciones
+      let datosHabitaciones = {};
+      
+      await fetch(rutaHabitaciones, option)
+        .then(response => response.json())
+        .then(data => {
+          
+          datosHabitaciones = data[0]  // Asume que los datos vienen como un array de objetos
+        })
+        .catch(err => console.error("error en peticion" + err))
+      
     res.render("dash", {
       name: req.user.name,
       "menu": 3,
-      "datosReservas": datosReservas,  // Datos de las reservaciones
-      "datosUsuarios": datosUsuarios   // Datos de los usuarios
+      "datosReservas": datosReservas,
+      "datosUsuarios": datosUsuarios,
+      "datosMetodosPago": datosMetodosPago,
+      "datosHabitaciones": datosHabitaciones   // Datos de los métodos de pago
     });
 
   } catch (error) {
@@ -49,6 +71,8 @@ const guardarr = async (req, res) => {
   const nuevaReservacion = {
     codigo_usuario: req.body.CODIGO_USUARIO,
     codigo_metodo_pago: req.body.CODIGO_METODO_PAGO,
+    numero_habitacion: req.body.NUMERO_HABITACION,
+
     fecha_entrada: req.body.FECHA_ENTRADA,
     fecha_salida: req.body.FECHA_SALIDA,
     precio_inicial: req.body.PRECIO_INICIAL,
@@ -106,6 +130,8 @@ const editreserva = async (req, res) => {
   const id = req.query.id;
   const codigo_usuario = req.query.codigo_usuario;
   const codigo_metodo_pago = req.query.codigo_metodo_pago;
+  const numero_habitacion = req.query.numero_habitacion;
+
   const fecha_entrada = req.query.fecha_entrada;
   const fecha_salida = req.query.fecha_salida;
   const precio_inicial = req.query.precio_inicial;
@@ -120,6 +146,8 @@ const editreserva = async (req, res) => {
     id: id,
     codigo_usuario: codigo_usuario,
     codigo_metodo_pago: codigo_metodo_pago,
+    numero_habitacion: numero_habitacion,
+
     fecha_entrada: fecha_entrada,
     fecha_salida: fecha_salida,
     precio_inicial: precio_inicial,
@@ -157,6 +185,8 @@ const guardarre = async (req, res) => {
     id: req.body.id,
     codigo_usuario: req.body.codigo_usuario,
     codigo_metodo_pago: req.body.codigo_metodo_pago,
+    numero_habitacion: req.body.numero_habitacion,
+
     fecha_entrada: req.body.fecha_entrada,
     fecha_salida: req.body.fecha_salida,
     precio_inicial: req.body.precio_inicial,

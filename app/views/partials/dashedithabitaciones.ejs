@@ -29,22 +29,34 @@
                 </div>
                 <div class="form-group">
                   <label>Código de piso</label>
-                  <input type="text" class="form-control" value="<%= datos.codigo_piso %>" name="codigo_piso">
-                </div>
-                <div class="form-group">
-                  <label>Código de categoría</label>
-                  <input type="text" class="form-control" value="<%= datos.codigo_categoria %>" name="codigo_categoria">
-                </div>
-                <div class="form-group">
-                  <label>Código de hotel</label>
-                  <input type="text" class="form-control" value="<%= datos.codigo_hotel %>" name="codigo_hotel">
-                </div>
+                  <select class="form-control" name="codigo_piso">
+                      <% pisos.forEach((piso) => { %>
+                          <option value="<%= piso.CODIGO_PISO %>" <% if (datos.codigo_piso == piso.CODIGO_PISO) { %> selected <% } %>><%= piso.DESCRIPCION %></option>
+                      <% }); %>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>Código de categoría</label>
+                <select class="form-control" name="codigo_categoria">
+                    <% categorias.forEach((categoria) => { %>
+                        <option value="<%= categoria.CODIGO_CATEGORIA %>" <% if (datos.codigo_categoria == categoria.CODIGO_CATEGORIA) { %> selected <% } %>><%= categoria.NOMBRE %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Código de hotel</label>
+              <select class="form-control" name="codigo_hotel">
+                  <% hoteles.forEach((hotel) => { %>
+                      <option value="<%= hotel.CODIGO_HOTEL %>" <% if (datos.codigo_hotel == hotel.CODIGO_HOTEL) { %> selected <% } %>><%= hotel.NOMBRE %></option>
+                  <% }); %>
+              </select>
+          </div>
                 <div class="form-group">
                   <label>Estado de habitación</label>
                   <select class="form-control" name="codigo_estado_habitacion">
-                      <option value="1" <% if (datos.codigo_estado_habitacion == 1) { %> selected <% } %>>Ocupada</option>
-                      <option value="2" <% if (datos.codigo_estado_habitacion == 2) { %> selected <% } %>>Disponible</option>
-                      <option value="3" <% if (datos.codigo_estado_habitacion == 3) { %> selected <% } %>>En limpieza</option>
+                      <% estadosHabitacion.forEach((estado) => { %>
+                          <option value="<%= estado.CODIGO_ESTADO_HABITACION %>" <% if (datos.codigo_estado_habitacion == estado.CODIGO_ESTADO_HABITACION) { %> selected <% } %>><%= estado.DESCRIPCION %></option>
+                      <% }); %>
                   </select>
               </div>
                 <div class="form-group">
@@ -57,27 +69,37 @@
                 </div>
                 <div class="form-group">
                   <label>Estado</label>
-                  <input type="text" class="form-control" value="<%= datos.estado %>" name="estado">
-                </div>
-                <div class="form-group">
-                    <label>Fecha de creacion</label>
-                    <input type="text" class="form-control" value="<% const fechaCreacionh=new Date(datos.fecha_creacion); %>
-                    <%= fechaCreacionh.toISOString().split('T')[0] %>" name="fecha_creacion">
-                </div>
+                  <select class="form-control" name="estado">
+                      <option value="1" <% if (datos.estado == 1) { %> selected <% } %>>Activo</option>
+                      <option value="2" <% if (datos.estado == 2) { %> selected <% } %>>Inactivo</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>Fecha de modificacion</label>
+
+                <input id="fechaCreacion" name="fecha_creacion" type="text" class="form-control" readonly>
+
+            </div>
                 <div class="box-footer">
                   <button class="btn btn-app" type="submit" onclick="confirmar()">
                     <i class="fa fa-save"></i> Guardar
                   </button>
-                  <button class="btn btn-danger">
+                  <a href="habitaciones" class="btn btn-danger">
                     <i class="fa fa-times"></i>
                     Cancelar
-                  </button>
+                  </a>
                 </div>
               </form>
             </div>
           </div>
         </section>
       </div>
+
+      
+<script>
+  let fecha = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
+  document.getElementById('fechaCreacion').value = fecha;
+</script>
       
       <script>
         function confirmar() {

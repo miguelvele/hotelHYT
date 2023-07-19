@@ -19,12 +19,10 @@ const usuario = async (req, res) => {
       const tiposUsuario = await tiposUsuarioResponse.json();
   
       // Crear mapeo de tipos de usuario
-      console.log(tiposUsuario);
       const tiposUsuarioMap = {};
 tiposUsuario[0].forEach(tipo => {
   tiposUsuarioMap[tipo.CODIGO_TIPO_USUARIO] = tipo.DESCRIPCION;
 });
-  console.log(tiposUsuarioMap)
       res.render('dash', {
         name: req.user.name,
         menu: 1,
