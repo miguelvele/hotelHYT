@@ -31,6 +31,7 @@ const metodopago = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 8,
             "datos": datos,
         });
@@ -130,7 +131,7 @@ const editmetodo = async (req, res) => {
     try {
 
         res.render("dash", {
-
+            name: req.user.name,
 
             "menu": 13,
             "datos": datos

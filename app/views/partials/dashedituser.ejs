@@ -31,9 +31,12 @@
                     </div>
                     
                     
-                    <label>Tipo de usuario</label>
-                        <input type="text" class="form-control"  value="<%= datos.codigo_tipo_usuario %>" name="codigo_tipo_usuario">
-                    
+                    <label>Tipo de Usuario</label>
+                    <select name="codigo_tipo_usuario" class="form-control">
+                      <% tiposUsuario.forEach((tipo) => { %>
+                        <option value="<%= tipo.CODIGO_TIPO_USUARIO %>" <%= tipo.CODIGO_TIPO_USUARIO == datos.codigo_tipo_usuario ? 'selected' : '' %>><%= tipo.DESCRIPCION %></option>
+                      <% }); %>
+                    </select>
                     <div class="form-group">
                         <label>Tipo de Documento</label>
                         <input type="text" class="form-control"  value="<%= datos.tipo_documento %>" name="tipo_documento">
@@ -64,9 +67,10 @@
                     
                     </div>
                     <div class="form-group">
-                        <label>Fecha de creacion</label>
-                        <input type="text" class="form-control" value="<% const fechaCreacion=new Date(datos.fecha_creacion); %>
-                        <%= fechaCreacion.toISOString().split('T')[0] %>" name="fecha_creacion">
+                        <label>Fecha de modificacion</label>
+                        
+                        <input id="fechaCreacion" name="fecha_creacion" type="text" class="form-control" readonly>
+
                     </div>
                     <div class="box-footer">
                         <div class="input-group">
@@ -74,10 +78,10 @@
                                 <i class="fa fa-save"></i> Guardar
                             </button>
                         </div>
-                        <button class="btn btn-danger">
+                        <a href="usuario" class="btn btn-danger">
                             <i class="fa fa-times"></i>
                             Cancelar
-                        </button>
+                        </a>
                     </div>
                 </form>
 
@@ -93,6 +97,10 @@
 </div>
 
 
+<script>
+    let fecha = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
+    document.getElementById('fechaCreacion').value = fecha;
+    </script>
 <script>
     function confirmar() {
         const formu = document.querySelector("#formulario");

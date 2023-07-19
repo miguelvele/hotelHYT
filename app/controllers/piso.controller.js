@@ -31,6 +31,7 @@ const pisos = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 9,
             "datos": datos,
         });
@@ -132,7 +133,7 @@ const editpisos = async (req, res) => {
 
         res.render("dash", {
 
-
+            name: req.user.name,
             "menu": 14,
             "datos": datos
         });

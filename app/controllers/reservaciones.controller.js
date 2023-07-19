@@ -34,6 +34,7 @@ const reservaciones = async (req, res) => {
       .catch(err => console.error("error en peticion" + err))
 
     res.render("dash", {
+      name: req.user.name,
       "menu": 3,
       "datosReservas": datosReservas,  // Datos de las reservaciones
       "datosUsuarios": datosUsuarios   // Datos de los usuarios
@@ -136,6 +137,7 @@ const editreserva = async (req, res) => {
   try {
 
     res.render("dash", {
+      name: req.user.name,
 
 
       "menu": 6,

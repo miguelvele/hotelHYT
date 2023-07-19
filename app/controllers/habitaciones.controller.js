@@ -32,6 +32,7 @@ const habitaciones = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 2,
             "datos": datos,
         });
@@ -125,7 +126,7 @@ const edithabi = async (req, res) => {
 
         res.render("dash", {
 
-
+            name: req.user.name,
             "menu": 5,
             "datos": datos
         });

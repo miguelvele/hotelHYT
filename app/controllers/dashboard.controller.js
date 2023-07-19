@@ -47,6 +47,7 @@ const inicio = async (req, res) => {
 
     // Renderizar la vista 'dash' con los datos de las habitaciones
     res.render("dash", {
+      name: req.user.name,
       menu: 0,
       roomData,
     });

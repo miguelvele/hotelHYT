@@ -21,7 +21,7 @@ router.get('/reservaciones',  requireAuth, requireAdmin, reservacionesController
 router.post('/guardarr', reservacionesController.guardarr);
 router.get('/borrarr', reservacionesController.borrarr);
 router.get('/salir', reservacionesController.salir);
-router.get('/editreserva', reservacionesController.editreserva);
+router.get('/editreserva',requireAuth, requireAdmin, reservacionesController.editreserva);
 router.post('/guardarre', reservacionesController.guardarre);
 router.post('/generarpdfreser', reservacionesController.generarpdfreser);
 

@@ -9,37 +9,34 @@ import moment from 'moment-timezone';
 import bodyParser from 'body-parser';
 import fs from "fs"
 
+
 const usuario = async (req, res) => {
-
-
     try {
-        // process.env.API + 'pro' + `/${id}`;
-
-        let ruta = process.env.API + 'usuarios';
-        let option = {
-            method: "GET",
-        }
-        let datos = {};
-        const result = await fetch(ruta, option)
-            .then(response => response.json())
-            .then(data => {
-                datos = data[0]
-                //console.log(data[0]);
-            })
-            .catch(err => console.error("error en peticion" + err))
-
-
-
-        res.render("dash", {
-            "menu": 1,
-            "datos": datos,
-        });
-
+      const usuariosResponse = await fetch(process.env.API + 'usuarios');
+      const usuarios = await usuariosResponse.json();
+  
+      const tiposUsuarioResponse = await fetch(process.env.API + 'tiposusuario');
+      const tiposUsuario = await tiposUsuarioResponse.json();
+  
+      // Crear mapeo de tipos de usuario
+      console.log(tiposUsuario);
+      const tiposUsuarioMap = {};
+tiposUsuario[0].forEach(tipo => {
+  tiposUsuarioMap[tipo.CODIGO_TIPO_USUARIO] = tipo.DESCRIPCION;
+});
+  console.log(tiposUsuarioMap)
+      res.render('dash', {
+        name: req.user.name,
+        menu: 1,
+        datos: usuarios[0],
+        tiposUsuario: tiposUsuario[0],
+        tiposUsuarioMap: tiposUsuarioMap
+      });
     } catch (error) {
-        res.redirect("/");
+      console.error(error);
+      res.redirect('/');
     }
-
-};
+  };
 
 const guardaru = async (req, res) => {
     const nuevoUsuario = {
@@ -118,6 +115,8 @@ const actualizar = async (req, res) => {
         });
 };
 const edituser = async (req, res) => {
+    
+
     const id = req.query.id;
     const codigo_usuario = req.query.codigo_usuario;
     const codigo_tipo_usuario = req.query.codigo_tipo_usuario;
@@ -148,10 +147,13 @@ const edituser = async (req, res) => {
 
 
     try {
+        const tiposUsuarioResponse = await fetch(process.env.API + 'tiposusuario');
+        const tiposUsuario = await tiposUsuarioResponse.json();
 
         res.render("dash", {
+            name: req.user.name,
 
-
+            "tiposUsuario": tiposUsuario[0],
             "menu": 4,
             "datos": datos
         });

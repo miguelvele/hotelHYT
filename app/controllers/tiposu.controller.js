@@ -31,6 +31,7 @@ const tiposu = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 11,
             "datos": datos,
         });
@@ -131,7 +132,7 @@ const edittiposu = async (req, res) => {
     try {
 
         res.render("dash", {
-
+            name: req.user.name,
 
             "menu": 16,
             "datos": datos

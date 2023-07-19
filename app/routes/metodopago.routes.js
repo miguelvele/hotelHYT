@@ -22,7 +22,7 @@ router.get('/borrarmetodo', metodoController.borrarmetodo);
 router.get('/salir', metodoController.salir);
 router.get('/actualizar', metodoController.actualizar);
 router.post('/generarpdfmetodo', metodoController.generarpdfmetodo);
-router.get('/editmetodo', metodoController.editmetodo);
+router.get('/editmetodo',requireAuth, requireAdmin,metodoController.editmetodo);
 
 
 

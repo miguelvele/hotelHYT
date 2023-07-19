@@ -21,7 +21,7 @@ router.post('/guardarcategoria', categoriaController.guardarcategoria);
 router.get('/borrarcate', categoriaController.borrarcate);
 router.get('/salir', categoriaController.salir);
 router.post('/generarpdf', categoriaController.generarpdf);
-router.get('/editcatego', categoriaController.editcatego);
+router.get('/editcatego',requireAuth, requireAdmin, categoriaController.editcatego);
 
 
 

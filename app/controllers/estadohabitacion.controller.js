@@ -31,6 +31,7 @@ const estadosh = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 10,
             "datos": datos,
         });
@@ -132,7 +133,7 @@ const editestado = async (req, res) => {
 
         res.render("dash", {
 
-
+            name: req.user.name,
             "menu": 15,
             "datos": datos
         });

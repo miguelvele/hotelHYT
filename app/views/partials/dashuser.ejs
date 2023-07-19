@@ -35,6 +35,7 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>TIPO DE USUARIO</th>
                 <th>DOCUMENTO</th>
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
@@ -46,6 +47,8 @@
               <% datos.forEach((elements)=>{ %>
                 <tr>
                   <td><%= elements.CODIGO_USUARIO %></td>
+                  <td><%= tiposUsuarioMap[elements.CODIGO_TIPO_USUARIO] %></td>
+
                   <td><%= elements.DOCUMENTO %></td>
                   <td><%= elements.NOMBRE %></td>
                   <td><%= elements.APELLIDO %></td>
@@ -53,6 +56,7 @@
                   
                   
                   <td>
+                   
 
                     <a href="edituser?id=<%= elements.CODIGO_USUARIO %>&codigo_tipo_usuario=<%= elements.CODIGO_TIPO_USUARIO %>&documento=<%= elements.DOCUMENTO %>&tipo_documento=<%= elements.TIPO_DOCUMENTO %>&nombre=<%= elements.NOMBRE %>&apellido=<%= elements.APELLIDO %>&correo=<%= elements.CORREO %>&clave=<%= elements.CLAVE %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">
                       <i class="fa fa-edit"></i>
@@ -98,12 +102,13 @@
           
           <div class="modal-body">
             <div class="form-group">
-            <label>Tipo de Usuario</label>
-            <select name="CODIGO_TIPO_USUARIO" class="form-control">
-              <option  value="2">USUARIO</option>
-                <option value="1">ADMIN</option>
-            </select>
-          </div>
+              <label>Tipo de Usuario</label>
+              <select name="CODIGO_TIPO_USUARIO" class="form-control">
+                <% for(let tipo of tiposUsuario) { %>
+                  <option value="<%= tipo.CODIGO_TIPO_USUARIO %>"><%= tipo.DESCRIPCION %></option>
+                <% } %>
+              </select>
+            </div>
           </div>
           <div class="modal-body">
             <div class="form-group">

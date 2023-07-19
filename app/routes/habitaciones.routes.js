@@ -24,7 +24,7 @@ router.get('/borrarh',habitacionesController.borrarh);
 router.get('/salir',habitacionesController.salir);
 router.post('/generarpdfhabi', habitacionesController.generarpdfhabi);
 
-router.get('/edithabi',habitacionesController.edithabi);
+router.get('/edithabi',requireAuth, requireAdmin,habitacionesController.edithabi);
 
 
 

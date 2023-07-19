@@ -22,7 +22,7 @@ router.get('/borrarpiso', pisosController.borrarpiso);
 router.get('/salir', pisosController.salir);
 router.get('/actualizar', pisosController.actualizar);
 router.post('/generarpdf', pisosController.generarpdf);
-router.get('/editpisos', pisosController.editpisos);
+router.get('/editpisos', requireAuth, requireAdmin,pisosController.editpisos);
 
 
 

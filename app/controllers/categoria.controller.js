@@ -31,6 +31,7 @@ const categorias = async (req, res) => {
 
 
         res.render("dash", {
+            name: req.user.name,
             "menu": 7,
             "datos": datos,
         });
@@ -121,7 +122,7 @@ const editcatego = async (req, res) => {
 
         res.render("dash", {
 
-
+            name: req.user.name,
             "menu": 12,
             "datos": datos
         });
