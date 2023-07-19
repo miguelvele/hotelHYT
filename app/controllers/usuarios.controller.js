@@ -209,21 +209,16 @@ const guardar = async (req, res) => {
     }
 }
 
-const generarpdf = async (req, res) => {
+const generarpdfu = async (req, res) => {
     try {
         const formato = req.body.formato; // Obtener el parámetro "formato" de la solicitud POST
 
         // Hacer una solicitud GET a la API para obtener la información
         const response = await axios.get(process.env.API + 'usuarios');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
-
-        // Mostrar información por consola
-        console.log('Información del Usuario:');
-
-        userData.forEach((usuarios) => {
-            console.log(`Nombre: ${usuarios.NOMBRE}`);
-            console.log(`ID: ${usuarios.CODIGO_USUARIO}`);
-        });
+         // Obtener el nombre del usuario desde las cookies
+         const userName = req.user.name;
+        
 
         if (formato === 'pdf') {
             // Crear un nuevo documento PDF
@@ -236,9 +231,8 @@ const generarpdf = async (req, res) => {
 
             // Agregar contenido al PDF
             doc.fontSize(20).text('Información de los Usuario', { align: 'center' });
-            doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
-            // Agregar la fecha y hora exacta de generación del reporte
-            doc.fontSize(12);
+            //aqui va el nombre de usuario que tiene la cookie
+            doc.fontSize(16).text('Generado por: ' + userName, { align: 'center' });            doc.fontSize(12);
             const fechaActual = moment().tz('America/Bogota').format('YYYY-MM-DD h:mm:ss A');
             doc.text('Fecha de generación de reporte: ' + fechaActual, 10, 20);
             // Leer la imagen
@@ -311,5 +305,5 @@ const generarpdf = async (req, res) => {
 
 
 export const usuarioController = {
-    usuario, guardaru, borrar, salir, actualizar, generarpdf, edituser, guardar
+    usuario, guardaru, borrar, salir, actualizar, generarpdfu, edituser, guardar
 };

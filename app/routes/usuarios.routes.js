@@ -21,7 +21,7 @@ router.post('/guardar', usuarioController.guardar);
 router.get('/borrar', usuarioController.borrar);
 router.get('/salir', usuarioController.salir);
 router.get('/actualizar', usuarioController.actualizar);
-router.post('/generarpdf', usuarioController.generarpdf);
+router.post('/generarpdfu', requireAuth, requireAdmin,usuarioController.generarpdfu);
 router.get('/edituser',requireAuth, requireAdmin, usuarioController.edituser);
 
 
