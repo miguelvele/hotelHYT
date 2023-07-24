@@ -216,13 +216,10 @@ const generarpdfhabi = async (req, res) => {
         const response = await axios.get(process.env.API + 'habitacion');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
 
-        // Mostrar información por consola
-        console.log('Información del las habitaciones:');
+        const userName = req.user.name;
 
-        userData.forEach((usuarios) => {
-            console.log(`Nombre: ${usuarios.NUMERO_HABITACION}`);
-            
-        });
+        // Mostrar información por consola
+        
 
         if (formato === 'pdf') {
             // Crear un nuevo documento PDF
@@ -235,7 +232,7 @@ const generarpdfhabi = async (req, res) => {
 
             // Agregar contenido al PDF
             doc.fontSize(20).text('Información de las Habitaciones', { align: 'center' });
-            doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
+            doc.fontSize(16).text('Generado por: ' + userName, { align: 'center' });            doc.fontSize(12);
             // Agregar la fecha y hora exacta de generación del reporte
             doc.fontSize(12);
             const fechaActual = moment().tz('America/Bogota').format('YYYY-MM-DD h:mm:ss A');

@@ -28,10 +28,14 @@ const loginUser = async (req, res) => {
     if (user.CODIGO_TIPO_USUARIO !== parseInt(tipoUsuario)) {
       return res.json({ error: 'No tiene permiso para acceder a este recurso' });
     }
+    // Verificar el estado del usuario
+    if (user.ESTADO === 2) {
+      return res.json({ error: 'Usuario inactivo. Contacte al Hotel.' });
+    }
 
     // Generación del token JWT
     const token = jwt.sign({ id: user.CODIGO_USUARIO, name: user.NOMBRE, type: user.CODIGO_TIPO_USUARIO }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
+      expiresIn: '24h',
     }); 
 
     // Envío del token en la cookie

@@ -5,7 +5,7 @@
       <h1>
         Habitaciones
       </h1>
-      
+
     </section>
 
     <!-- Main content -->
@@ -37,7 +37,7 @@
                 <th>Detalle</th>
                 <th>Precio</th>
                 <th>Estado</th>
-                
+
 
               </tr>
             </thead>
@@ -47,8 +47,11 @@
                   <td>
                     <%= elements.NUMERO_HABITACION %>
                   </td>
-                  <td><%= categoriaMap[elements.CODIGO_CATEGORIA] || 'Desconocida' %></td>
-                  <td><%= estadoHabitacionMap[elements.CODIGO_ESTADO_HABITACION] || 'Desconocido' %>
+                  <td>
+                    <%= categoriaMap[elements.CODIGO_CATEGORIA] || 'Desconocida' %>
+                  </td>
+                  <td>
+                    <%= estadoHabitacionMap[elements.CODIGO_ESTADO_HABITACION] || 'Desconocido' %>
                   </td>
                   <td>
                     <%= elements.DETALLE %>
@@ -56,12 +59,15 @@
                   <td>
                     <%= elements.PRECIO %>
                   </td>
-                  <td><%= elements.ESTADO == 1 ? 'Activo' : 'Inactivo' %></td>
+                  <td>
+                    <%= elements.ESTADO==1 ? 'Activo' : 'Inactivo' %>
+                  </td>
 
 
 
                   <td>
-                    <a href="edithabi?id=<%= elements.NUMERO_HABITACION %>&codigo_piso=<%= elements.CODIGO_PISO %>&codigo_categoria=<%= elements.CODIGO_CATEGORIA %>&codigo_hotel=<%= elements.CODIGO_HOTEL %>&codigo_estado_habitacion=<%= elements.CODIGO_ESTADO_HABITACION %>&detalle=<%= elements.DETALLE %>&precio=<%= elements.PRECIO %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>" class="btn btn-success">                      
+                    <a href="edithabi?id=<%= elements.NUMERO_HABITACION %>&codigo_piso=<%= elements.CODIGO_PISO %>&codigo_categoria=<%= elements.CODIGO_CATEGORIA %>&codigo_hotel=<%= elements.CODIGO_HOTEL %>&codigo_estado_habitacion=<%= elements.CODIGO_ESTADO_HABITACION %>&detalle=<%= elements.DETALLE %>&precio=<%= elements.PRECIO %>&estado=<%= elements.ESTADO %>&fecha_creacion=<%= elements.FECHA_CREACION %>"
+                      class="btn btn-success">
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a data-toggle="modal" data-target="#modal-default2" class="btn btn-success">
@@ -102,39 +108,51 @@
               <h4 class="modal-title">Ingrese la habitacion</h4>
             </div>
             <div class="modal-body">
-              
+
 
 
               <div class="form-group">
                 <label>Piso</label>
                 <select name="CODIGO_PISO" class="form-control">
-                    <% pisos.forEach((piso) => { %>
-                        <option value="<%= piso.CODIGO_PISO %>"><%= piso.DESCRIPCION %></option>
+                    <% pisos.forEach((piso)=> { %>
+                        <% if(piso.ESTADO !== 2) { %>
+                            <option value="<%= piso.CODIGO_PISO %>">
+                                <%= piso.DESCRIPCION %>
+                            </option>
+                        <% } %>
                     <% }); %>
                 </select>
             </div>
-
+            
             <div class="form-group">
-              <label>Categoria</label>
-              <select name="CODIGO_CATEGORIA" class="form-control">
-                  <% categorias.forEach((categoria) => { %>
-                      <option value="<%= categoria.CODIGO_CATEGORIA %>"><%= categoria.NOMBRE %></option>
-                  <% }); %>
-              </select>
-          </div>
-
-
-              <div class="form-group">
+                <label>Categoria</label>
+                <select name="CODIGO_CATEGORIA" class="form-control">
+                    <% categorias.forEach((categoria)=> { %>
+                        <% if(categoria.ESTADO !== 2) { %>
+                            <option value="<%= categoria.CODIGO_CATEGORIA %>">
+                                <%= categoria.NOMBRE %>
+                            </option>
+                        <% } %>
+                    <% }); %>
+                </select>
+            </div>
+            
+            <div class="form-group">
                 <label>Hotel</label>
                 <select name="CODIGO_HOTEL" class="form-control">
-                  <option value="1">Glamping la polka</option>
+                    <option value="1">Glamping la polka</option>
                 </select>
-              </div>
-              <div class="form-group">
+            </div>
+            
+            <div class="form-group">
                 <label>Estado Habitacion</label>
                 <select name="CODIGO_ESTADO_HABITACION" class="form-control">
-                    <% estadosHabitacion.forEach((estado) => { %>
-                        <option value="<%= estado.CODIGO_ESTADO_HABITACION %>"><%= estado.DESCRIPCION %></option>
+                    <% estadosHabitacion.forEach((estado)=> { %>
+                        <% if(estado.ESTADO !== 2) { %>
+                            <option value="<%= estado.CODIGO_ESTADO_HABITACION %>">
+                                <%= estado.DESCRIPCION %>
+                            </option>
+                        <% } %>
                     <% }); %>
                 </select>
             </div>
@@ -142,7 +160,7 @@
                 <label>Detalle</label>
 
                 <div class="form-group">
-                  
+
                   <input name="DETALLE" type="text" class="form-control"
                     placeholder="Ingrese el detalle de la habitacion">
                 </div>
@@ -156,7 +174,7 @@
                 <label>Precio</label>
 
                 <div class="form-group">
-                  
+
                   <input name="PRECIO" type="number" class="form-control" placeholder="Ingrese el precio">
                 </div>
               </div>
@@ -172,10 +190,10 @@
               <div class="form-group">
                 <label>Fecha de Creacion</label>
                 <div class="form-group">
-                    
-                    <input id="fechaCreacion" name="FECHA_CREACION" type="text" class="form-control" readonly>
+
+                  <input id="fechaCreacion" name="FECHA_CREACION" type="text" class="form-control" readonly>
                 </div>
-            </div>
+              </div>
 
 
               <div class="modal-footer">
@@ -197,7 +215,7 @@
 
 
 
-    
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -206,9 +224,9 @@
 <script>
   let fecha = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Bogota' });
   document.getElementById('fechaCreacion').value = fecha;
-  </script>
-  <script>
-    
+</script>
+<script>
+
   function confirmar(NUMERO_HABITACION) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -227,7 +245,7 @@
           showConfirmButton: false
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = `borrarh?id=${NUMERO_HABITACION}`;
           Swal.fire({
             title: '¡Borrado exitoso!',

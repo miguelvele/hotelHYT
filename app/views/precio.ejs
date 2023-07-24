@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("./partials/head.ejs", {'titulo':'Precio'}); %>
+<%- include("./partials/head.ejs", {'titulo':'Precio'}); %>
 
-    
-    <body>
-        <div class="page-content">
-            <%- include("./partials/menu.ejs"); %>
 
-            <div class="container mt-4 ">
-                <div class="bg-danger text-center w-100">
-                    <h1>Cabañas</h1>
-                </div> 
-                    <% datos.forEach((elements)=>{ %>
-                <div class="card mb-4  col-md-12 mt-4">
-                    <div class="row ">
-                        <div class="col-md-4">
-                            <img src="/img/cabaña.jpg" class="card-img" alt="">
-                        </div>
-                        <div class="col-md-8 mx-auto ">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= elements.DETALLE %></h5>
-                                <h6 class="card-title">Precio $<%= elements.PRECIO %></h6>
-                                <a href="/reserva" class="btn btn-primary reservationBtn">Hacer reservación</a>                            </div>
-                        </div>
+  <body>
+    <div class="page-content">
+      <%- include("./partials/menu.ejs"); %>
+
+        <div class="container mt-4 ">
+          <div class="bg-danger text-center w-100">
+            <h1>Cabañas</h1>
+          </div>
+          <% datos.forEach((elements)=>{ %>
+            <% if (elements.ESTADO===1) { %>
+              <div class="card mb-4  col-md-12 mt-4">
+                <div class="row ">
+                  <div class="col-md-4">
+                    <img src="/img/cabaña.jpg" class="card-img" alt="">
+                  </div>
+                  <div class="col-md-8 mx-auto ">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= elements.DETALLE %>
+                      </h5>
+                      <h6 class="card-title">Precio $<%= elements.PRECIO %>
+                      </h6>
+                      <a href="/reserva" class="btn btn-primary reservationBtn">Hacer reservación</a>
                     </div>
+                  </div>
                 </div>
-                <% }) %>
-            </div>
-            <!-- <form action="guardarimagen" method="POST" enctype="multipart/form-data">
+              </div>
+              <% } %>
+            <% }) %>
+        </div>
+        <!-- <form action="guardarimagen" method="POST" enctype="multipart/form-data">
                 <input type="file" name="imagen" />
                 <button type="submit">Guardar imagen</button>
               </form> -->
-        </div>
+    </div>
 
-        
-<script>
-   // Función para verificar la autenticación del usuario antes de permitir la navegación a /reserva
-function checkAuthentication(event) {
-  // Evita la navegación predeterminada
-  event.preventDefault();
 
-  fetch('/check-auth', {
-    method: 'GET',
-    credentials: 'include',
-  })
-    .then((response) => {
-      if (!response.ok) {
-        // Si el usuario no está autenticado, muestra una alerta SweetAlert
-        return Swal.fire('Error', 'Para hacer una reservación, primero debe iniciar sesión.', 'error');
+    <script>
+      // Función para verificar la autenticación del usuario antes de permitir la navegación a /reserva
+      function checkAuthentication(event) {
+        // Evita la navegación predeterminada
+        event.preventDefault();
+
+        fetch('/check-auth', {
+          method: 'GET',
+          credentials: 'include',
+        })
+          .then((response) => {
+            if (!response.ok) {
+              // Si el usuario no está autenticado, muestra una alerta SweetAlert
+              return Swal.fire('Error', 'Para hacer una reservación, primero debe iniciar sesión.', 'error');
+            }
+            // Si el usuario está autenticado, navega a /reserva
+            window.location.href = '/reserva';
+          })
+          .catch((error) => {
+            console.error('Error al verificar la autenticación:', error);
+          });
       }
-      // Si el usuario está autenticado, navega a /reserva
-      window.location.href = '/reserva';
-    })
-    .catch((error) => {
-      console.error('Error al verificar la autenticación:', error);
-    });
-}
 
-// Selecciona todos los botones "Hacer reservación" y agrega un controlador de eventos a cada uno
-const reservationBtns = document.querySelectorAll('.reservationBtn');
-reservationBtns.forEach((btn) => {
-  btn.addEventListener('click', checkAuthentication);
-});
-  </script>
-</body>
+      // Selecciona todos los botones "Hacer reservación" y agrega un controlador de eventos a cada uno
+      const reservationBtns = document.querySelectorAll('.reservationBtn');
+      reservationBtns.forEach((btn) => {
+        btn.addEventListener('click', checkAuthentication);
+      });
+    </script>
+  </body>
+
 </html>

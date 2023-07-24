@@ -33,12 +33,11 @@
 
                     <label>Tipo de Usuario</label>
                     <select name="codigo_tipo_usuario" class="form-control">
-                        <% tiposUsuario.forEach((tipo)=> { %>
-                            <option value="<%= tipo.CODIGO_TIPO_USUARIO %>"
-                                <%=tipo.CODIGO_TIPO_USUARIO==datos.codigo_tipo_usuario ? 'selected' : '' %>><%=
-                                    tipo.DESCRIPCION %>
-                            </option>
-                            <% }); %>
+                        <% tiposUsuario.forEach((tipo) => { %>
+                            <% if(tipo.ESTADO !== 2) { %>
+                                <option value="<%= tipo.CODIGO_TIPO_USUARIO %>" <%= tipo.CODIGO_TIPO_USUARIO === datos.codigo_tipo_usuario ? 'selected' : '' %>><%= tipo.DESCRIPCION %></option>
+                            <% } %>
+                        <% }); %>
                     </select>
                     <div class="form-group">
                         <label>Tipo de Documento</label>

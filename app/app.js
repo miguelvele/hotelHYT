@@ -22,6 +22,7 @@ import registro from './routes/registro.routes.js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import routerLogin from './routes/login.routes.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -37,6 +38,11 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // MIDDLEWARES
+app.use(cors());
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Algo salió mal')
+  });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));

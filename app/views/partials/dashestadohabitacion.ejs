@@ -47,7 +47,7 @@
                 <tr>
                   <td><%= elements.CODIGO_ESTADO_HABITACION %></td>
                   <td><%= elements.DESCRIPCION %></td>
-                  <td><%= elements.ESTADO %></td>
+                  <td><%= elements.ESTADO == 1 ? 'Activo' : 'Inactivo' %></td>
                   <td>
                     <% const fechaCreacion=new Date(elements.FECHA_CREACION); %>
                     <%= fechaCreacion.toISOString().split('T')[0] %></td>
@@ -106,6 +106,7 @@
               <label>Estado</label>
               <select name="ESTADO" class="form-control">
                 <option  value="1">Activo</option>
+                <option value="2">Inactivo</option>
               </select>
             </div>
          </div>

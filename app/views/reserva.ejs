@@ -9,62 +9,128 @@
 			<%- include("./partials/menu.ejs"); %>
 		</div>
 		<div class="container mt-4 col-6 rounded shadow p-4">
-			
 
-					<form action="" class="formulario">
-						<h1 class="text-center mb-4">Hotelería y Turismo</h1>
-						<h3 class="text-center mb-4">Reservación</h3>
-						<p class="text-center mb-4">
-							Llena este pequeño formulario para hacer tu reserva.
-						</p>
 
-						<div class="form-group">
-							<label for="cliente" class="mb-2">Nombre completo:</label>
-							<input id="cliente" type="text" class="form-control"
-								placeholder="Ingresa tu nombre completo" required>
-						</div>
+			<form action="" class="formulario">
+				<h1 class="text-center mb-4">Hotelería y Turismo</h1>
+				<h3 class="text-center mb-4">Reservación</h3>
+				<p class="text-center mb-4">
+					Llena este pequeño formulario para hacer tu reserva.
+				</p>
 
-						<div class="form-group">
-							<label for="fechainicio" class="mb-2">Fecha de inicio:</label>
-							<input type="date" id="fechainicio" class="form-control" name="fecha-inicio" required>
-						</div>
+				<div class="form-group">
+					<label for="cliente" class="mb-2">Nombre completo:</label>
+					<input id="cliente" type="text" class="form-control" placeholder="Ingresa tu nombre completo"
+						required>
+				</div>
+				<div class="form-group">
+					<label for="servicio" class="mb-2">Habitacion:</label>
+					<select id="servicio" name="listaservicios" class="form-control" required>
+						<option value="" disabled selected>Selecciona una opción</option>
+						<% habitaciones.forEach((habitacion)=> { %>
+							<% if (habitacion.ESTADO===1) { %>
+								<option value="<%= habitacion.NUMERO_HABITACION %>|<%= habitacion.PRECIO %>">
+									<%= habitacion.DETALLE %> .Precio : <%= habitacion.PRECIO %>
+								</option>
+								<% } %>
+									<% }); %>
+					</select>
+				</div>
 
-						<div class="form-group">
-							<label for="fechafin" class="mb-2">Fecha de fin:</label>
-							<input type="date" id="fechafin" class="form-control" name="fecha-fin" required>
-						</div>
 
-						<div class="form-group">
-							<label for="hora" class="mb-2">Hora de reserva:</label>
-							<input id="hora" type="time" class="form-control" required>
-						</div>
+				<div class="form-group">
+					<label for="fechainicio" class="mb-2">Fecha de inicio:</label>
+					<input type="text" id="fechainicio" class="form-control" name="fecha-inicio" required>
+				</div>
 
-						<div class="form-group">
-							<label for="personas" class="mb-2">Cantidad de personas:</label>
-							<select id="personas" name="listapersonas" class="form-control" required>
-								<option value="" disabled selected>Selecciona una opción</option>
-								<option>2 personas</option>
-								<option>3 personas</option>
-							</select>
-						</div>
+				<div class="form-group">
+					<label for="fechafin" class="mb-2">Fecha de fin:</label>
+					<input type="text" id="fechafin" class="form-control" name="fecha-fin" required>
+				</div>
 
-						<div class="form-group">
-							<label for="servicio" class="mb-2">Tipo de reserva:</label>
-							<select id="servicio" name="listaservicios" class="form-control" required>
-								<option value="" disabled selected>Selecciona una opción</option>
-								<option>SERVICIO 1: cabaña con jacuzzi y malla - $130000 </option>
-								<option>SERVICIO 2: cabaña con jacuzzi, malla, barra libre y tour por amaga - $290000</option>
-								<option>SERVICIO 3: cabaña con jacuzzi, comida incluida, desayuno hasta la habitacion - $230000</option>
-						
-							</select>
-						</div>
 
-						<div id="respuesta"></div>
 
-						<button id="submit" class="btn btn-primary btn-block mt-4">Enviar a WhatsApp</button>
-					</form>
+				<div class="form-group">
+					<label>Metodo de pago</label>
+					<select id="metodopago" name="CODIGO_METODO_PAGO" class="form-control">
+						<% datosMetodosPago.forEach(function(metodoPago) { %>
+							<% if(metodoPago.ESTADO !==2) { %>
+								<option value="<%= metodoPago.CODIGO_METODO_PAGO %>">
+									<%= metodoPago.NOMBRE %>
+								</option>
+								<% } %>
+									<% }); %>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="personas" class="mb-2">Cantidad de personas:</label>
+					<select id="personas" name="listapersonas" class="form-control" required>
+						<option value="" disabled selected>Selecciona una opción</option>
+						<option>2 personas</option>
+						<option>3 personas</option>
+					</select>
+				</div>
+
 				
-			
+				<div id="respuesta"></div>
+
+				<button id="submit" class="btn btn-primary btn-block mt-4">Enviar a WhatsApp</button>
+
+				<script>
+					// Mueve la inicialización del selector de fechas fuera del escuchador de eventos
+					$(document).ready(function () {
+					  $("#fechainicio, #fechafin").datepicker({
+						dateFormat: "dd/mm/yy",
+						minDate: new Date(),
+					  });
+					});
+				  
+					document.addEventListener("DOMContentLoaded", async function () {
+						$("#servicio").change(async function () {
+    const habitacionId = $(this).val().split("|")[0]; // Obtener el id de la habitación de la opción seleccionada
+
+    try {
+        const response = await axios.get(`http://localhost:3000/api/reservas?NUMERO_HABITACION=${habitacionId}`);
+        const reservasArray = response.data[0]; // Obtener el array de reservas de la primera matriz
+
+        // Verificar si hay reservaciones para la habitación seleccionada
+        if (reservasArray && reservasArray.length > 0) {
+            const fechasReservadas = []; // Array para almacenar las fechas reservadas
+
+            for (let reserva of reservasArray) {
+                const fechaEntrada = moment(reserva.FECHA_ENTRADA, "YYYY-MM-DD").format("DD/MM/YYYY");
+                const fechaSalida = moment(reserva.FECHA_SALIDA, "YYYY-MM-DD").format("DD/MM/YYYY");
+
+                for (let d = moment(fechaEntrada, "DD/MM/YYYY"); d <= moment(fechaSalida, "DD/MM/YYYY"); d.add(1, "day")) {
+                    fechasReservadas.push(d.format("DD/MM/YYYY"));
+                }
+            }
+
+            // Actualizar los campos de fecha para deshabilitar las fechas reservadas
+            $("#fechainicio, #fechafin").datepicker("destroy");
+            $("#fechainicio, #fechafin").datepicker({
+                dateFormat: "dd/mm/yy",
+                minDate: new Date(),
+                beforeShowDay: function (date) {
+                    const dateString = moment(date).format("DD/MM/YYYY");
+                    return [!fechasReservadas.includes(dateString)];
+                }
+            });
+        } else {
+            // No hay reservaciones, restablecer los campos de fecha
+            $("#fechainicio, #fechafin").val("");
+            $("#fechainicio, #fechafin").datepicker("destroy");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+})
+				  </script>
+			</form>
+
+
 
 		</div>
 
@@ -81,53 +147,104 @@
 
 
 
-<script>
-	document.querySelector("#submit").addEventListener("click", e => {
-  e.preventDefault();
+			<script>
+				 document.addEventListener("DOMContentLoaded", async function () {
 
-  //INGRESE UN NUMERO DE WHATSAPP VALIDO AQUI:
-  const telefono = "573005255034";
+				document.querySelector("#submit").addEventListener("click", async e => {
+					e.preventDefault();
 
-  const cliente = document.querySelector("#cliente").value;
-  const fechainicio = document.querySelector("#fechainicio").value;
-  const fechafin = document.querySelector("#fechafin").value;
-  const hora = document.querySelector("#hora").value;
-  const personas = document.querySelector("#personas").value;
-  const servicio = document.querySelector("#servicio").value;
-  const resp = document.querySelector("#respuesta");
+					const telefono = "573005255034";
+					const cliente = document.querySelector("#cliente").value;
+					const fechainicio = document.querySelector("#fechainicio").value;
+					const fechafin = document.querySelector("#fechafin").value;
+					const metodopagoValue = document.querySelector("#metodopago option:checked").value;
+					const metodopagoText = document.querySelector("#metodopago option:checked").text;
+					const personas = document.querySelector("#personas").value;
+					const servicio = document.querySelector("#servicio option:checked").value;
+					const resp = document.querySelector("#respuesta");
 
-  resp.classList.remove("fail");
-  resp.classList.remove("send");
+					resp.classList.remove("fail");
+					resp.classList.remove("send");
 
-  const url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*HOTELERIA Y TURISMO*%0A%0A
-		*HOLA quiero realizar una reservacion*%0A%0A
-		*Nombre*%0A
-		${cliente}%0A
-		*Fecha de reserva*%0A
-		${fechainicio}%0A
+					const url = `https://api.whatsapp.com/send?phone=${telefono}&text=
+    *HOTELERIA Y TURISMO*%0A%0A
+    *HOLA quiero realizar una reservacion*%0A%0A
+    *Nombre*%0A
+    ${cliente}%0A
+    *Fecha de reserva*%0A
+    ${fechainicio}%0A
     *Hasta*%0A
-    ${fechafin}%0A%0A
-		*Hora de la reserva*%0A
-		${hora}%0A
-		*Cantidad de personas*%0A
-		${personas}%0A
-		*Cual cabaña desea*%0A
-		${servicio}`;
+    ${fechafin}%0A
+    *Metodo de pago*%0A
+    ${metodopagoText}%0A
+    *Cantidad de personas*%0A
+    ${personas}%0A
+    *Cual cabaña desea*%0A
+    ${servicio}`;
 
-  if (cliente === "" || fechainicio === "" || hora === "") {
-    resp.classList.add("fail");
-    resp.innerHTML = `Faltan algunos datos, ${cliente}`;
-    return false;
-  }
-  resp.classList.remove("fail");
-  resp.classList.add("send");
-  resp.innerHTML = `Se ha enviado tu reserva, ${cliente}`;
+					if (cliente === "" || fechainicio === "") {
+						resp.classList.add("fail");
+						resp.innerHTML = `Faltan algunos datos, ${cliente}`;
+						return false;
+					}
 
-  window.open(url);
-});
+					// Hacer una solicitud AJAX para obtener el CODIGO_USUARIO del usuario que inició sesión
+					let codigo_usuario;
+					try {
+						const response = await axios.get('/api/current-user');
+						codigo_usuario = response.data.codigo_usuario;
+					} catch (error) {
+						console.log(error); // Agrega esta línea
 
-</script>
+						resp.classList.add("fail");
+						resp.innerHTML = `Error al obtener datos del usuario, ${cliente}`;
+						return;
+					}
+					const [numeroHabitacion, precio] = servicio.split('|');
+					// Obtener la fecha de inicio y convertirla al formato "YYYY-MM-DD"
+					const fechaInicioFormatted = moment(fechainicio, "DD/MM/YYYY").format("YYYY-MM-DD");
+
+					// Obtener la fecha de fin y convertirla al formato "YYYY-MM-DD"
+					const fechaFinFormatted = moment(fechafin, "DD/MM/YYYY").format("YYYY-MM-DD");
+					const nuevaReservacion = {
+						codigo_usuario,
+						codigo_metodo_pago: metodopagoValue,
+						numero_habitacion: numeroHabitacion, // El valor de "servicio" es el número de habitación
+						fecha_entrada: fechaInicioFormatted,
+						fecha_salida: fechaFinFormatted,
+						precio_inicial: precio,
+						adelanto: 0,
+						precio_restante: precio,
+						total_pagado: 0,
+						costo_penalidad: 0,
+						observaciones: "ninguna",
+						estado: 1
+					};
+					let apiURL;
+					try {
+						const response = await axios.get('/api/url');
+						apiURL = response.data.url;
+					} catch (error) {
+						console.log(error);
+						resp.classList.add("fail");
+						resp.innerHTML = `Error al obtener la URL de la API, ${cliente}`;
+						return;
+					}
+
+					try {
+						await axios.post(apiURL + 'reservas', nuevaReservacion);
+						// ... el resto de tu código ...
+						// Redirigir al usuario a WhatsApp en una nueva pestaña
+						window.open(url, '_blank');
+					} catch (error) {
+						console.log(error);
+						resp.classList.add("fail");
+						resp.innerHTML = `Error al guardar la reserva, ${cliente}`;
+					}
+				});
+			})
+
+			</script>
 	</body>
 
 </html>

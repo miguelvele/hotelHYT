@@ -190,8 +190,7 @@ const generarpdfmetodo = async (req, res) => {
         const response = await axios.get(process.env.API + 'metodopago');
         const userData = response.data[0]; // Obtener el primer elemento del arreglo
 
-        // Mostrar información por consola
-        console.log('Información del los metodos de pago:');
+        const userName = req.user.name;
 
         
 
@@ -206,7 +205,7 @@ const generarpdfmetodo = async (req, res) => {
 
             // Agregar contenido al PDF
             doc.fontSize(20).text('Información de los metodos de pago', { align: 'center' });
-            doc.fontSize(16).text('Generado por:  miguel angel', { align: 'center' });
+            doc.fontSize(16).text('Generado por: ' + userName, { align: 'center' });            doc.fontSize(12);
             // Agregar la fecha y hora exacta de generación del reporte
             doc.fontSize(12);
             const fechaActual = moment().tz('America/Bogota').format('YYYY-MM-DD h:mm:ss A');

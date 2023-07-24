@@ -31,31 +31,42 @@
                   <label>Código de piso</label>
                   <select class="form-control" name="codigo_piso">
                       <% pisos.forEach((piso) => { %>
-                          <option value="<%= piso.CODIGO_PISO %>" <% if (datos.codigo_piso == piso.CODIGO_PISO) { %> selected <% } %>><%= piso.DESCRIPCION %></option>
+                          <% if(piso.ESTADO !== 2) { %>
+                              <option value="<%= piso.CODIGO_PISO %>" <% if (datos.codigo_piso == piso.CODIGO_PISO) { %> selected <% } %>><%= piso.DESCRIPCION %></option>
+                          <% } %>
                       <% }); %>
                   </select>
               </div>
+              
               <div class="form-group">
-                <label>Código de categoría</label>
-                <select class="form-control" name="codigo_categoria">
-                    <% categorias.forEach((categoria) => { %>
-                        <option value="<%= categoria.CODIGO_CATEGORIA %>" <% if (datos.codigo_categoria == categoria.CODIGO_CATEGORIA) { %> selected <% } %>><%= categoria.NOMBRE %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <div class="form-group">
-              <label>Código de hotel</label>
-              <select class="form-control" name="codigo_hotel">
-                  <% hoteles.forEach((hotel) => { %>
-                      <option value="<%= hotel.CODIGO_HOTEL %>" <% if (datos.codigo_hotel == hotel.CODIGO_HOTEL) { %> selected <% } %>><%= hotel.NOMBRE %></option>
-                  <% }); %>
-              </select>
-          </div>
-                <div class="form-group">
+                  <label>Código de categoría</label>
+                  <select class="form-control" name="codigo_categoria">
+                      <% categorias.forEach((categoria) => { %>
+                          <% if(categoria.ESTADO !== 2) { %>
+                              <option value="<%= categoria.CODIGO_CATEGORIA %>" <% if (datos.codigo_categoria == categoria.CODIGO_CATEGORIA) { %> selected <% } %>><%= categoria.NOMBRE %></option>
+                          <% } %>
+                      <% }); %>
+                  </select>
+              </div>
+              
+              <div class="form-group">
+                  <label>Código de hotel</label>
+                  <select class="form-control" name="codigo_hotel">
+                      <% hoteles.forEach((hotel) => { %>
+                          <% if(hotel.ESTADO !== 2) { %>
+                              <option value="<%= hotel.CODIGO_HOTEL %>" <% if (datos.codigo_hotel == hotel.CODIGO_HOTEL) { %> selected <% } %>><%= hotel.NOMBRE %></option>
+                          <% } %>
+                      <% }); %>
+                  </select>
+              </div>
+              
+              <div class="form-group">
                   <label>Estado de habitación</label>
                   <select class="form-control" name="codigo_estado_habitacion">
                       <% estadosHabitacion.forEach((estado) => { %>
-                          <option value="<%= estado.CODIGO_ESTADO_HABITACION %>" <% if (datos.codigo_estado_habitacion == estado.CODIGO_ESTADO_HABITACION) { %> selected <% } %>><%= estado.DESCRIPCION %></option>
+                          <% if(estado.ESTADO !== 2) { %>
+                              <option value="<%= estado.CODIGO_ESTADO_HABITACION %>" <% if (datos.codigo_estado_habitacion == estado.CODIGO_ESTADO_HABITACION) { %> selected <% } %>><%= estado.DESCRIPCION %></option>
+                          <% } %>
                       <% }); %>
                   </select>
               </div>
